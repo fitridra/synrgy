@@ -1,0 +1,127 @@
+* {
+    font-family: Helvetica, sans-serif;
+  }
+  
+  .logo{
+      position: inherit;
+      width: 100px;
+      height: 34px;
+      left: 122px;
+      top: 10px;
+      background: #0D28A6;
+  }
+  
+  .btn-success{
+    background-color: #5CB85F !important;
+    border-radius: 2px !important;
+    border-color: #5CB85F !important;
+  }
+  
+  .btn-primary{
+    background-color: #0D28A6 !important;
+    border-radius: 2px !important;
+    border-color: #0D28A6 !important;
+  }
+  
+  .btn-warning{
+    background-color: #F9CC00 !important;
+    border-radius: 2px !important;
+    border-color: #F9CC00 !important;
+  }
+  
+  .btn-danger{
+    background-color: #FA2C5A !important;
+    border-radius: 2px !important;
+    border-color: #FA2C5A !important;
+  }
+  
+  #mobil{
+    position: relative;
+    left: 112px;
+  }
+  
+  a{
+    text-decoration: none; 
+    color: #000;
+  }
+  
+  #our-services-margin1{
+    margin-left: 106px;
+  }
+  
+  #our-services-margin2{
+    margin-top: 50px; 
+    margin-bottom: 50px; 
+    margin-right: 50px;
+  }
+  
+  .our-services-icon{
+    font-size: 20px; 
+    color: lightblue;
+  }
+  
+  .why-us-icon{
+    font-size: 24px !important; 
+    border-radius: 48% !important;
+  }
+  
+  .testimonial-card{
+    background-color: #F1F3FF !important; 
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15) !important;
+    border: 0px !important;
+    border-radius: 8px !important;
+  }
+  
+  #cta-banner{
+    background-color: #0D28A6; 
+    color: #FFF;
+    border-radius: 13px;
+  }
+  
+  .icon-footer{
+    font-size: 18px !important; 
+    border-radius: 48% !important;
+  }
+  
+  .owl-carousel{
+    width: 130% !important; 
+    left: -15% !important;
+  }
+  
+  [class*='owl-'] button{
+  color: white !important;
+  }
+  
+  .owl-prev > span{
+    background: #FFFFFF !important;
+    border: 1px solid #C4C4C4 !important;
+    font-size: 20px !important;
+    border-radius: 50% !important;
+    width: 32px !important;
+    height: 32px !important;
+    display: block !important;
+    margin-left: -40px !important;
+    color: black !important;
+  }
+  
+  .owl-next > span{
+    background: #5CB85F !important;
+    font-size: 20px !important;
+    border-radius: 50% !important;
+    width: 32px !important;
+    height: 32px !important;
+    display: block !important;
+    color: #fff !important;
+  }
+  
+  .owl-dots{
+    display: none !important;
+  }
+  
+  .accordion-item{
+    border-radius: 4px;
+  }
+  
+  .owl-prev, .owl-next{
+    width: 0 !important;
+  }
