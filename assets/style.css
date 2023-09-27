@@ -2,7 +2,7 @@
     font-family: Helvetica, sans-serif;
   }
   
-  .logo{
+  #logo{
       position: inherit;
       width: 100px;
       height: 34px;
@@ -11,28 +11,33 @@
       background: #0D28A6;
   }
   
+  #logo2{
+    width: 100px;
+    height: 34px;
+  }
+  
   .btn-success{
-    background-color: #5CB85F !important;
-    border-radius: 2px !important;
-    border-color: #5CB85F !important;
+    background-color: #5CB85F;
+    border-radius: 2px;
+    border-color: #5CB85F;
   }
   
   .btn-primary{
-    background-color: #0D28A6 !important;
-    border-radius: 2px !important;
-    border-color: #0D28A6 !important;
+    background-color: #0D28A6;
+    border-radius: 2px;
+    border-color: #0D28A6;
   }
   
   .btn-warning{
-    background-color: #F9CC00 !important;
-    border-radius: 2px !important;
-    border-color: #F9CC00 !important;
+    background-color: #F9CC00;
+    border-radius: 2px;
+    border-color: #F9CC00;
   }
   
   .btn-danger{
-    background-color: #FA2C5A !important;
-    border-radius: 2px !important;
-    border-color: #FA2C5A !important;
+    background-color: #FA2C5A;
+    border-radius: 2px;
+    border-color: #FA2C5A;
   }
   
   #mobil{
@@ -61,15 +66,15 @@
   }
   
   .why-us-icon{
-    font-size: 24px !important; 
-    border-radius: 48% !important;
+    font-size: 24px; 
+    border-radius: 48%;
   }
   
   .testimonial-card{
-    background-color: #F1F3FF !important; 
-    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15) !important;
-    border: 0px !important;
-    border-radius: 8px !important;
+    background-color: #F1F3FF; 
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
+    border: 0px;
+    border-radius: 8px;
   }
   
   #cta-banner{
@@ -79,43 +84,43 @@
   }
   
   .icon-footer{
-    font-size: 18px !important; 
-    border-radius: 48% !important;
+    font-size: 18px; 
+    border-radius: 48%;
   }
   
   .owl-carousel{
-    width: 130% !important; 
-    left: -15% !important;
+    width: 130%; 
+    left: -15%;
   }
   
   [class*='owl-'] button{
-  color: white !important;
+  color: white;
   }
   
   .owl-prev > span{
-    background: #FFFFFF !important;
-    border: 1px solid #C4C4C4 !important;
-    font-size: 20px !important;
-    border-radius: 50% !important;
-    width: 32px !important;
-    height: 32px !important;
-    display: block !important;
-    margin-left: -40px !important;
-    color: black !important;
+    background: #FFFFFF;
+    border: 1px solid #C4C4C4;
+    font-size: 20px;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: block;
+    margin-left: -40px;
+    color: black;
   }
   
   .owl-next > span{
-    background: #5CB85F !important;
-    font-size: 20px !important;
-    border-radius: 50% !important;
-    width: 32px !important;
-    height: 32px !important;
-    display: block !important;
-    color: #fff !important;
+    background: #5CB85F;
+    font-size: 20px;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: block;
+    color: #fff;
   }
   
   .owl-dots{
-    display: none !important;
+    display: none;
   }
   
   .accordion-item{
@@ -123,5 +128,71 @@
   }
   
   .owl-prev, .owl-next{
-    width: 0 !important;
+    width: 0;
+  }
+  
+  #mobil1{
+    display: none;
+  }
+  
+  @media (min-device-width : 320px) and (max-device-width : 991px){
+    #mobil{
+      display: none;
+    }
+  
+    .star{
+      margin-top: -32px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+  
+    #mobil1{
+      display: inherit;
+      left: 51px;
+      margin-top: 10%;
+      width: 109%;
+    }
+  
+    .our-services{
+      flex-direction: column;
+    }
+  
+    #our-services-margin1{
+      margin-left: 15px;
+      margin-bottom: 50px;
+      width: 90%;
+    }
+    
+    #our-services-margin2{
+      margin-top: auto; 
+      margin-bottom: auto; 
+      margin-right: auto;
+    }
+  
+    #faq{
+      flex-direction: column;
+    }
+  
+    .testimonial-card{
+      margin: 10px;
+      height: 100%; 
+      width: 100%; 
+    }
+  
+    .whyus{
+      margin-bottom: 10px;
+    }
+  
+    .owl-carousel{
+      padding: 50px;
+    }
+  
+    .icon-footer{
+      margin-bottom: 20px;
+    }
+  
+    .center{
+      text-align: center;
+    }
+  
   }

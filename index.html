@@ -22,41 +22,53 @@
         <!-- Header Nav -->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
             <div class="container">
-            <a class="navbar-brand me-auto logo" href="#"></a>
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <a class="navbar-brand me-auto" id="logo" href="#"></a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+                aria-controls="offcanvasRight" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel"
+                style="width: 50%;">
+                <div class="offcanvas-header">
+                  <h5 id="offcanvasRightLabel"><b>BCR</b></h5>
+                  <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                  <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item me-2">
-                    <a class="nav-link active" aria-current="page" href="#OurServices">Our Services</a>
+                      <a class="nav-link active" aria-current="page" href="#OurServices">Our Services</a>
                     </li>
                     <li class="nav-item me-2">
-                    <a class="nav-link active" href="#WhyUs">Why Us</a>
+                      <a class="nav-link active" href="#WhyUs">Why Us</a>
                     </li>
                     <li class="nav-item me-2">
-                    <a class="nav-link active" href="#Testimonial">Testimonial</a>
+                      <a class="nav-link active" href="#Testimonial">Testimonial</a>
                     </li>
                     <li class="nav-item me-3">
-                    <a class="nav-link active" href="#FAQ">FAQ</a>
+                      <a class="nav-link active" href="#FAQ">FAQ</a>
                     </li>
                     <li class="nav-item">
-                    <a class="btn btn-success" href="#Register">Register</a>
+                      <a class="btn btn-success" href="#Register">Register</a>
                     </li>
-                </ul>
+                  </ul>
+                </div>
+              </div>
             </div>
         </nav>
     
         <!-- Hero Section -->
         <section class="container-fluid py-5 mt-5 bg-light">
             <div class="container">
-            <div class="row">
+              <div class="row">
                 <div class="col">
-                <h1><br><b>Sewa & Rental Mobil Terbaik di kawasan (Lokasimu)</b></h1>
-                <p>Selamat datang di Binar Car Rental. Kami menyediakan mobil kualitas terbaik dengan harga terjangkau.
+                  <img src="https://res.cloudinary.com/ddzo9brne/image/upload/v1694182692/img-car_phb7pn.svg" class="img-fluid rounded float-end" id="mobil" alt="mobil">
+                  <h1><br><b>Sewa & Rental Mobil Terbaik di kawasan (Lokasimu)</b></h1>
+                  <p>Selamat datang di Binar Car Rental. Kami menyediakan mobil kualitas terbaik dengan harga terjangkau.
                     Selalu siap melayani kebutuhanmu untuk sewa mobil selama 24 jam.</p>
-                <button class="btn btn-success">Mulai Sewa Mobil</button>
+                  <button class="btn btn-success">Mulai Sewa Mobil</button>
+                  <img src="https://res.cloudinary.com/ddzo9brne/image/upload/v1694182692/img-car_phb7pn.svg" id="mobil1" alt="mobil">
                 </div>
-                <div class="col">
-                <img src="https://res.cloudinary.com/ddzo9brne/image/upload/v1694182692/img-car_phb7pn.svg" class="img-fluid rounded float-end" id="mobil" alt="mobil">
-                </div>
-            </div>
+              </div>
             </div>
         </section>
     
@@ -82,11 +94,11 @@
     
         <!-- Why Us -->
         <section class="container py-5 mt-5" id="WhyUs">
-            <h4><b>Why Us?</b></h4>
-            <p>Mengapa harus pilih Binar Car Rental?</p>
+            <h4 class="center"><b>Why Us?</b></h4>
+            <p  class="center">Mengapa harus pilih Binar Car Rental?</p>
             <div class="row">
             <div class="col-lg">
-                <div class="card">
+                <div class="card whyus">
                 <div class="card-body">
                     <i class="btn btn-warning btn-sm bi-hand-thumbs-up why-us-icon" style="color: white;"></i>
                     <h5 class="card-title mt-2"><b>Mobil Lengkap</b></h5>
@@ -96,7 +108,7 @@
             </div>
     
             <div class="col-lg">
-                <div class="card">
+                <div class="card whyus">
                 <div class="card-body">
                     <i class="btn btn-danger btn-sm bi-tag why-us-icon"></i>
                     <h5 class="card-title mt-2"><b>Harga Murah</b></h5>
@@ -106,7 +118,7 @@
             </div>
     
             <div class="col-lg">
-                <div class="card">
+                <div class="card whyus">
                 <div class="card-body">
                     <i class="btn btn-primary btn-sm bi-clock why-us-icon"></i>
                     <h5 class="card-title mt-2"><b>Layanan 24 Jam</b></h5>
@@ -117,7 +129,7 @@
             </div>
     
             <div class="col-lg">
-                <div class="card">
+                <div class="card whyus">
                 <div class="card-body">
                     <i class="btn btn-success btn-sm bi-award why-us-icon"></i>
                     <h5 class="card-title mt-2"><b>Sopir Profesional</b></h5>
@@ -130,7 +142,7 @@
     
         <!-- Testimonial -->
         <section id="Testimonial">
-            <div class="container-fluid py-5">
+            <div class="container-fluid pt-5">
             <h4 class="text-center"><b>Testimonial</b></h4>
             <p class="text-center">Berbagai review positif dari para pelanggan kami</p>
             </div>
@@ -302,7 +314,7 @@
         </section>
     
         <!-- CTA Banner -->
-        <section class="container py-5 mt-5">
+        <section class="container pt-5">
             <div class="card" id="cta-banner">
             <div class="card-body mx-auto align-items-center text-center">
                 <h1 class="mt-5"><b>Sewa Mobil di (Lokasimu) Sekarang</b></h1><br>
@@ -315,10 +327,10 @@
     
         <!-- FAQ -->
         <section class="container py-5 mt-5" id="FAQ">
-            <div class="row">
+            <div class="row" id="faq">
             <div class="col">
-                <h4><b>Frequently Asked Question</b></h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                <h4 class="center"><b>Frequently Asked Question</b></h4>
+                <p class="center">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
             </div>
             <div class="col">
                 <div class="accordion" id="accordionFlushExample">
@@ -449,8 +461,8 @@
                 </div>
     
                 <div class="col-lg-3">
-                <p>Copyright Binar 2022</p>
-                <a href="#" class="logo btn btn-primary"></a>
+                <p>Copyright Binar 2023</p>
+                <a href="#" class="btn btn-primary" id="logo2"></a>
                 </div>
             </div>
             </div>
