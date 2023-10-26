@@ -80,7 +80,7 @@ function createFilterBox() {
     iconUserWrapper.style.padding = "10px"
 
     let iconUser = document.createElement("img");
-    iconUser.src = "./assets/img/user-icon.svg";
+    iconUser.src = "./images/user-icon.svg";
     iconUserWrapper.append(iconUser);
 
     iconUserContainer.append(iconUserWrapper);

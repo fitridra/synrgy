@@ -30,6 +30,7 @@ function onRequest(req, res) {
     ".html": "text/html",
     ".js": "text/javascript",
     ".svg": "image/svg+xml",
+    ".png": "image/png",
   };
 
   fs.exists(absolutePath, (exist) => {

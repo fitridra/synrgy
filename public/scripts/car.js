@@ -1,4 +1,4 @@
-class Car {
+class Component {
   static list = [];
 
   static init(cars) {
@@ -21,7 +21,13 @@ class Car {
     options,
     specs,
     availableAt,
+    withDriver
   }) {
+
+    if (this.constructor === Component) {
+      throw new Error('cannot create instance from abstract class')
+    }
+    
     this.id = id;
     this.plate = plate;
     this.manufacture = manufacture;
@@ -38,14 +44,10 @@ class Car {
     this.specs = specs;
     this.availableAt = availableAt;
     this.withDriver = withDriver;
-
-    if (this.constructor == Component) {
-      throw new Error("Can't instance from abstract class");
-    }
   }
 
   render() {
-    return `
+    return `    
     <div class="col-lg-4" style="margin-bottom:1%;">
       <div class="card h-100 mt-2">
         <div class="card-body">
@@ -54,13 +56,13 @@ class Car {
           <p style="font-weight:bold;">Rp ${formatRupiah(this.rentPerDay)} / hari</p>
           <p class="card-text">${this.description}</p>
           <p>
-            <img src="./assets/img/fi_users.png" style="width: 7%;">
+            <img src="./images/fi_users.png" style="width: 7%;">
             ${this.capacity} Orang</p>
           <p>
-            <img src="./assets/img/fi_settings.png" style="width: 7%;">
+            <img src="./images/fi_settings.png" style="width: 7%;">
             ${this.transmission}</p>
           <p>
-            <img src="./assets/img/fi_calendar.png" style="width: 7%;color:white;">
+            <img src="./images/fi_calendar.png" style="width: 7%;color:white;">
             Tahun ${this.year}</p><br>
           <button class="btn btn-success position-absolute bottom-0 start-50 translate-middle-x" style="width: 91%;margin-bottom: 15px;"">Pilih Mobil</button>
         </div>
@@ -70,4 +72,4 @@ class Car {
   }
 }
 
-class Car extends Component {}
+class Car extends Component{}
