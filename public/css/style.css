@@ -134,6 +134,28 @@
   #mobil1{
     display: none;
   }
+
+  #filter-box {
+    position: absolute;
+    margin-top: -74px;
+    z-index: 1090;
+    width: 1360px;
+  }
+  
+  .background-filter {
+    background-color: rgba(0, 0, 0, .5);
+    position: fixed;
+    display: none;
+  }
+  
+  .form-control:focus {
+    border-color: #5CB85F;
+    box-shadow: 0 0 0 0.25rem rgba(201, 231, 202, 1);
+  }
+  
+  option:hover{
+    color: #5CB85F;
+  }  
   
   @media (min-device-width : 320px) and (max-device-width : 991px){
     #mobil{
