@@ -13,7 +13,6 @@ app.use(
 ); 
 
 app.use('/api/cars', api.cars());
-app.use('/api/sizes', api.sizes());
 
 app.listen(PORT, () => {
   console.log('Server is running on http://localhost:%d', PORT);

@@ -1,7 +1,9 @@
 const Router = require('express').Router;
-const db = require('../../../config/database');
+const db = require('../../../config/knexfile.js');
 const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
+const fs = require('fs').promises;
+
 
 // Konfigurasi Cloudinary
 cloudinary.config({
@@ -18,7 +20,7 @@ function ApiRouterCars() {
   const router = Router();
 
   // List
-  router.get('/', async (req, res) => {
+  router.get('/', async (_, res) => {
     const data = await db.select('*').from('cars');
     res.status(200).json({
       data,
@@ -35,42 +37,47 @@ function ApiRouterCars() {
   });
 
   // Create
-  router.post('/', upload.single('picture'), async (req, res) => {
+  router.post('/', upload.single('photo'), async (req, res) => {
     try {
-      const { title, author, isbn, published_year, genre, copies_available, total_copies } = req.body;
-
-      // Upload gambar ke Cloudinary
-      const result = await cloudinary.uploader.upload(req.file.buffer.toString('base64'), {
+      const { name, prize, sizes_id } = req.body;
+      const uniqueFileName = `car_${Date.now()}`;
+      
+      // Simpan buffer ke file sementara
+      const tempFilePath = `/tmp/${uniqueFileName}.jpg`;
+      await fs.writeFile(tempFilePath, req.file.buffer);
+  
+      // Upload file dari path ke Cloudinary
+      const result = await cloudinary.uploader.upload(tempFilePath, {
         folder: 'car_images',
+        public_id: uniqueFileName,
         format: 'jpg',
       });
-
-      // Simpan data buku ke database
+    
+      await fs.unlink(tempFilePath);
+  
+      // Simpan data mobil ke database
       const newCar = {
-        title,
-        author,
-        isbn,
-        published_year,
-        genre,
-        copies_available,
-        total_copies,
-        picture: result.secure_url,
+        name,
+        photo: result.secure_url,
+        prize,
+        sizes_id
       };
-
+  
       const insertedCar = await db('cars').insert(newCar).returning('*');
-
+  
       res.status(201).json({
         message: 'Create success!',
-        data: insertedBook[0],
+        data: insertedCar[0],
       });
     } catch (error) {
       console.error(error);
       res.status(500).json({
-        message: 'Error creating book',
+        message: 'Error creating car',
         error: error.message,
       });
     }
   });
+  
 
   // Update
   router.put('/:id', async (req, res) => {
@@ -114,4 +121,4 @@ function ApiRouterCars() {
   return router;
 }
 
-module.exports = ApiRouterCar;
+module.exports = ApiRouterCars;

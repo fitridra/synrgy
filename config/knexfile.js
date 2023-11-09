@@ -3,13 +3,8 @@ const knex = require('knex');
 const config = {
   development: {
     client: "pg",
-    connection: {
-      host: '127.0.0.1',
-      port: 5432,
-      user: 'postgres',
-      password: 'docker',
-      database: 'db_cars',
-    },
+    connection: 'postgres://postgres:docker@127.0.0.1:5432/db_cars', 
+    searchPath: ['public'],
     migrations: {
       tableName: "knex_migrations",
       directory: "./migrations",
@@ -20,4 +15,4 @@ const config = {
 
 const environment = 'development';
 
-module.exports = config[environment];
+module.exports = knex(config[environment]);
