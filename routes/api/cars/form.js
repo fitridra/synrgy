@@ -22,7 +22,7 @@ async function form(req, res) {
     sizes_id = realcar.sizes_id;
   }
 
-  res.status(200).render("form", {
+  res.status(200).json({
     title: title,
     id: id,
     name: name,

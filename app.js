@@ -5,8 +5,6 @@ const api = require('./routes/api');
 const app = express(); 
 const { PORT = 8000 } = process.env;
 
-app.set('view engine', 'ejs');
-
 app.use(express.json()); 
 app.use(
   express.urlencoded({
