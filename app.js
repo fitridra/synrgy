@@ -14,6 +14,11 @@ app.use(
 
 app.use('/api/cars', api.cars());
 
+app.get("/", api.cars());
+app.get("/form", api.form);
+app.get("/form/:id", api.form);
+
+
 app.listen(PORT, () => {
   console.log('Server is running on http://localhost:%d', PORT);
 });

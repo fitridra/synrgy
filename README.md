@@ -50,18 +50,20 @@ DELETE /api/cars/:id -> Deleting a specific car by id
 │   └── knexfile.js
 ├── routes
 │   ├── api
-│   │   └── cars
-│   │       └── cars.js
+│   │   ├── cars
+│   │   │   └── cars.js
+│   │   └── form
+│   │       └── form.js
 │   └── cars
 │       └── cars.js
 ├── .gitignore
 ├── app.js
-├── erd.jpg
+├── erd-cars.png
 ├── package-lock.json
 ├── package.json
 └── README.md
 ```
 
 ## ERD
-![Entity Relationship Diagram](erd.jpg)
+![Entity Relationship Diagram](erd-cars.png)
 
