@@ -10,7 +10,7 @@ lalu ubah file config yakni username, password, dan database yang akan digunakan
 lalu lakukan migration
 
 ```bash
-npm migrate
+npm run migrate
 ```
 
 Terakhir, anda dapat menjalankan aplikasinya
@@ -49,13 +49,10 @@ DELETE /api/cars/:id -> Deleting a specific car by id
 │   │   └── 20231109144453_create_sizes_table.js
 │   └── knexfile.js
 ├── routes
-│   ├── api
-│   │   ├── cars
-│   │   │   └── cars.js
-│   │   └── form
-│   │       └── form.js
-│   └── cars
-│       └── cars.js
+│   └── api
+│       └── cars
+│           └── cars.js
+│           └── form.js
 ├── .gitignore
 ├── app.js
 ├── erd-cars.png

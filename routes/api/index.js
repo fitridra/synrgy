@@ -1,5 +1,5 @@
 const cars = require('./cars/cars');
-const form = require('./form/form');
+const form = require('./cars/form');
 
 module.exports = {
   cars,form
