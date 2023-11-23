@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import { IUsers } from '../models/Users';
 class Auth {
   constructor() {}
-  authorize(req: Request, res: Response, next: NextFunction) {
+  authorize(_: Request, __: Response, next: NextFunction) {
     next();
   }
   async authorizeSuperAdmin(req: Request, res: Response, next: NextFunction) {
@@ -19,7 +19,7 @@ class Auth {
     const token = req.headers.authorization;
     console.log('token > ', token);
 
-    const userData = jwt.verify(`${token}`, 'RENTAL_BOOK_JWT_KEY') as IUsers;
+    const userData = jwt.verify(`${token}`, 'RENTAL_CAR_JWT_KEY') as IUsers;
     console.log('userData > ', userData);
 
     if (!(userData.role === 'superadmin')) {
@@ -29,19 +29,6 @@ class Auth {
     }
 
     next();
-
-    // const bearerToken = `${headers.authorization}`.split('Bearer');
-    // const token = bearerToken[1];
-    // const userData = await ServiceAuth.validateToken(token);
-    // const isSuperAdmin = ServiceAuth.validateRole(userData, 'superadmin');
-
-    // if (!isSuperAdmin) {
-    //   return res.status(403).json({
-    //     data: 'not authorized',
-    //   });
-    // }
-
-    // req.user = userData;
   }
 }
 
