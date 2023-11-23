@@ -11,14 +11,16 @@ interface ICars {
 
 class Cars implements IRestModel<ICars> {
   constructor() {}
-  async create(payload: ICars) {}
-  async list(params?: TParams) {
+  async create() {}
+  async list() {
     const data = await database.select('*').from('cars');
     return data as ICars[];
   }
-  async remove(id: string) {}
-  async show(id: string) {}
-  async update(id: string, payload: ICars) {}
+  async remove() {}
+  async show(id: string) {
+    const car = await database.select('*').from('cars').where('cars_id', id).first();
+  }
+  async update() {}
 }
 
 export default new Cars();

@@ -4,7 +4,7 @@ import ServiceCars from '../../services/ServiceCars';
 
 class ControllerCars implements IRestController {
   constructor() {}
-  async list(req: Request, res: Response) {
+  async list(_: Request, res: Response) {
     try {
       const response = await ServiceCars.list();
       res.status(200).json({
@@ -16,10 +16,10 @@ class ControllerCars implements IRestController {
       });
     }
   }
-  async show(req: Request, res: Response) {}
-  async create(req: Request, res: Response) {}
-  async remove(req: Request, res: Response) {}
-  async update(req: Request, res: Response) {}
+  async show() {}
+  async create() {}
+  async remove() {}
+  async update() {}
 }
 
 export default new ControllerCars();

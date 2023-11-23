@@ -3,7 +3,7 @@ import Cars from '../models/Cars';
 
 class ServiceCars {
   constructor() {}
-  async list(params?: TParams) {
+  async list() {
     try {
       const response = await Cars.list();
       return response;
