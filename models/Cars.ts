@@ -15,16 +15,30 @@ interface ICars {
 
 class Cars implements IRestModel<ICars> {
   constructor() {}
-  async create() {}
-  async list() {
+
+  async create(newCar: ICars): Promise<ICars> {
+    const [createdCar] = await database('cars').insert(newCar).returning('*');
+    return createdCar as ICars;
+  }
+
+  async list(): Promise<ICars[]> {
     const data = await database.select('*').from('cars');
     return data as ICars[];
   }
-  async remove() {}
-  async show(id: string) {
-    const car = await database.select('*').from('cars').where('cars_id', id).first();
+
+  async remove(id: string): Promise<void> {
+    await database('cars').where('cars_id', id).del();
   }
-  async update() {}
+
+  async show(id: string): Promise<ICars | undefined> {
+    const car = await database.select('*').from('cars').where('cars_id', id).first();
+    return car as ICars | undefined;
+  }
+
+  async update(id: string, updatedCar: ICars): Promise<ICars | undefined> {
+    const [updatedRecord] = await database('cars').where('cars_id', id).update(updatedCar).returning('*');
+    return updatedRecord as ICars | undefined;
+  }
 }
 
 export default new Cars();
