@@ -1,7 +1,14 @@
 import { Request, Response, NextFunction } from 'express';
-// import ServiceAuth from '../services/ServiceAuth';
 import jwt from 'jsonwebtoken';
 import { IUsers } from '../models/Users';
+
+declare global {
+  namespace Express {
+    interface Request {
+      user?: IUsers;
+    }
+  }
+}
 class Auth {
   constructor() {}
   authorize(_: Request, __: Response, next: NextFunction) {
@@ -30,6 +37,31 @@ class Auth {
 
     next();
   }
+
+  async authorizeAdmin(req: Request, res: Response, next: NextFunction) {
+    const user = req.user as IUsers;
+
+    if (!user || user.role !== 'admin') {
+      return res.status(403).json({
+        data: 'Forbidden, only admin allowed',
+      });
+    }
+
+    next();
+  }
+
+  async authorizeMember(req: Request, res: Response, next: NextFunction) {
+    const user = req.user as IUsers;
+
+    if (!user || user.role !== 'member') {
+      return res.status(403).json({
+        data: 'Forbidden, only member allowed',
+      });
+    }
+
+    next();
+  }
+
 }
 
 export default new Auth();

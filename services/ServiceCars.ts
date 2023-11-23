@@ -1,7 +1,7 @@
 import { TParams } from '../interfaces/IRest';
 import Cars from '../models/Cars';
 import jwt, { JwtPayload } from 'jsonwebtoken';
-
+import { Request } from 'express';
 
 class ServiceCars {
   constructor() {}
@@ -26,7 +26,14 @@ class ServiceCars {
 
   async create(newCar: TParams, req: Request) {
     try {
-      const token = req.headers.get('authorization') as string;
+      const token = Array.isArray(req.headers?.authorization)
+      ? req.headers.authorization[0]
+      : req.headers?.authorization as string | undefined;
+
+      if (!token) {
+        throw new Error('Authorization header is missing');
+      }
+
       const decodedToken = jwt.verify(token, 'RENTAL_CAR_JWT_KEY') as JwtPayload;
       const createdByRole = decodedToken.role;
 
@@ -42,7 +49,6 @@ class ServiceCars {
         updated_at: currentDate,
         created_by: createdByRole,
         updated_by: createdByRole,
-
       });
       return response;
     } catch (error) {
@@ -57,7 +63,14 @@ class ServiceCars {
         throw new Error('Car not found');
       }
 
-      const token = req.headers.get('authorization') as string;
+      const token = Array.isArray(req.headers?.authorization)
+      ? req.headers.authorization[0]
+      : req.headers?.authorization as string | undefined;
+      
+      if (!token) {
+        throw new Error('Authorization header is missing');
+      }
+
       const decodedToken = jwt.verify(token, 'RENTAL_CAR_JWT_KEY') as JwtPayload;
       const updatedByRole = decodedToken.role;
 
@@ -77,8 +90,6 @@ class ServiceCars {
       throw error;
     }
   }
-  
-  
 
   async remove(id: string) {
     try {

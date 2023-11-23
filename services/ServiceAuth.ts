@@ -1,6 +1,6 @@
 import Users, { IUsers } from '../models/Users';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 
 export type TLoginPayload = {
   username: string;
@@ -51,6 +51,30 @@ class ServiceAuth {
   }) {
     const create = await Users.query().insert(payload);
     return create;
+  }
+
+  async registerMember(payload: {
+    username: string;
+    email: string;
+    password: string;
+  }) {
+    const create = await Users.query().insert({
+      ...payload,
+      role: 'member',
+    });
+    return create;
+  }
+
+  async getUserByToken(token: string) {
+    try {
+      const decodedToken = jwt.verify(token, 'RENTAL_CAR_JWT_KEY') as JwtPayload;
+      const userId = decodedToken.id;
+
+      const user = await Users.query().findById(userId);
+      return user;
+    } catch (error) {
+      throw error;
+    }
   }
 
   async getUserById(id: string) {

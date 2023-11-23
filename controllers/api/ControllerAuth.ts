@@ -45,6 +45,39 @@ class ControllerAuth {
       });
     }
   }
+
+  async registerMember(req: Request, res: Response) {
+    try {
+      await ServiceAuth.register({
+        email: req.body.email,
+        password: req.body.password,
+        role: 'member', 
+        username: req.body.username,
+      });
+      res.status(201).json({
+        message: 'Registration success',
+      });
+    } catch (error) {
+      res.status(500).json({
+        message: 'Registration failed',
+      });
+    }
+  }
+
+  async getCurrentUser(req: Request, res: Response) {
+    try {
+      const token = req.headers.authorization as string;
+      const userData = await ServiceAuth.getUserByToken(token);
+
+      res.status(200).json({
+        data: userData,
+      });
+    } catch (error) {
+      res.status(500).json({
+        data: error,
+      });
+    }
+  }
 }
 
 export default new ControllerAuth();

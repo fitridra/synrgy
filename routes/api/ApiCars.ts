@@ -24,7 +24,7 @@ class ApiCars {
      *             example:
      *               cars: [{ id: 1, name: 'Car 1' }, { id: 2, name: 'Car 2' }]
      */
-    this.router.get('/', Auth.authorize, ControllerCars.list);
+    this.router.get('/', Auth.authorizeMember, ControllerCars.list);
 
     /**
      * @swagger
@@ -47,7 +47,7 @@ class ApiCars {
      *             example:
      *               car: { id: 1, name: 'Car 1' }
      */
-    this.router.get('/:id', Auth.authorize, ControllerCars.show);
+    this.router.get('/:id', Auth.authorizeMember, ControllerCars.show);
 
     /**
      * @swagger
@@ -69,7 +69,7 @@ class ApiCars {
      *             example:
      *               car: { id: 3, name: 'Car 3' }
      */
-    this.router.post('/', Auth.authorize, ControllerCars.create);
+    this.router.post('/', Auth.authorizeSuperAdmin, Auth.authorizeAdmin, ControllerCars.create);
 
     /**
      * @swagger
@@ -98,7 +98,7 @@ class ApiCars {
      *             example:
      *               car: { id: 3, name: 'Car 3' }
      */
-    this.router.put('/:id', Auth.authorize, ControllerCars.update);
+    this.router.put('/:id', Auth.authorizeSuperAdmin, Auth.authorizeAdmin, ControllerCars.update);
 
     /**
      * @swagger
@@ -117,7 +117,7 @@ class ApiCars {
      *       204:
      *         description: No Content
      */
-    this.router.delete('/:id', Auth.authorize, ControllerCars.remove);
+    this.router.delete('/:id', Auth.authorizeSuperAdmin, Auth.authorizeAdmin, ControllerCars.remove);
 
     return this.router;
   }
