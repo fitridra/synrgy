@@ -1,4 +1,6 @@
 import express, { Express } from 'express';
+import swaggerUi from 'swagger-ui-express';
+import specs from './swagger';
 
 import ApiCars from './routes/api/ApiCars';
 import ApiAuth from './routes/api/ApiAuth';
@@ -12,6 +14,8 @@ class Server {
 
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
+
+    this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
     this.app.use('/api/cars', ApiCars.routes());
     this.app.use('/api/auth', ApiAuth.routes());
