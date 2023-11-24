@@ -25,8 +25,6 @@ npm run dev
 - /api-docs = API Documentation & testing
 - /api/auth/login = Login
 - /api/auth/register-admin = Register Account Role Admin
-- /api/auth/register-member = Register Account Role Member
 - /api/cars = Post & Get Car Data
 - /api/cars/:id = Get by id, Put, Delete Car Data
-- /current-user = View Current User 
 ```

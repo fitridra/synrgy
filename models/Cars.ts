@@ -4,7 +4,7 @@ import { Model } from 'objection';
 Model.knex(database);
 
 export interface ICars {
-  cars_id: string;
+  id: string;
   name: string;
   photo: string;
   price: number;
@@ -21,7 +21,7 @@ class Cars extends Model {
   }
 
   static get idColumn() {
-    return 'cars_id';
+    return 'id';
   }
 }
 
