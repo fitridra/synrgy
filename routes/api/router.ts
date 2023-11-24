@@ -1,15 +1,90 @@
 import { Router } from 'express';
+
+// controllers
+import ControllerAuth from '../../controllers/api/ControllerAuth';
 import ControllerCars from '../../controllers/api/ControllerCars';
-import Auth from '../../middlewares/Auth';
 
-class ApiCars {
-  private router: Router;
+// middlewares
+import MiddlewareAuth from '../../middlewares/Auth';
 
-  constructor() {
-    this.router = Router();
+// services
+import ServiceCars from '../../services/ServiceCars';
+import ServiceAuth from '../../services/ServiceAuth';
 
-  }
-  routes() {
+// repositories
+import RepoCars from '../../repositories/RepoCars';
+import RepoUsers from '../../repositories/RepoUsers';
+
+const router = Router();
+
+const middlewareAuth = new MiddlewareAuth();
+
+// Auth
+const repoUser = new RepoUsers();
+const serviceAuth = new ServiceAuth(repoUser);
+const controllerAuth = new ControllerAuth(serviceAuth);
+
+// Cars
+const repoCars = new RepoCars();
+const serviceCars = new ServiceCars(repoCars);
+const controllerCar = new ControllerCars(serviceCars);
+
+// auth
+
+/**
+     * @swagger
+     * /api/auth/login:
+     *   post:
+     *     summary: Melakukan login
+     *     description: Melakukan login dan menghasilkan token akses
+     *     requestBody:
+     *       required: true
+     *       content:
+     *         application/json:
+     *           example:
+     *             username: 'superadmin'
+     *             password: 'admin'
+     *     responses:
+     *       200:
+     *         description: OK
+     *         content:
+     *           application/json:
+     *             example:
+     *               token: 'jwt.token.123'
+     */
+router.post('/auth/login', controllerAuth.login());
+
+/**
+     * @swagger
+     * /api/auth/register-admin:
+     *   post:
+     *     summary: Registrasi admin oleh superadmin
+     *     description: Melakukan registrasi admin oleh superadmin
+     *     security:
+     *       - BearerAuth: []
+     *     requestBody:
+     *       required: true
+     *       content:
+     *         application/json:
+     *           example:
+     *             username: 'admin1'
+     *             password: 'password123'
+     *     responses:
+     *       201:
+     *         description: Created
+     *         content:
+     *           application/json:
+     *             example:
+     *               message: 'Admin berhasil didaftarkan'
+     */
+router.post(
+  '/auth/register-admin',
+  middlewareAuth.authorizeSuperAdmin,
+  controllerAuth.registerAdmin()
+);
+
+// cars
+
     /**
      * @swagger
      * /api/cars:
@@ -24,9 +99,9 @@ class ApiCars {
      *             example:
      *               cars: [{ id: 1, name: 'Car 1' }, { id: 2, name: 'Car 2' }]
      */
-    this.router.get('/', Auth.authorizeMember, ControllerCars.list);
+router.get('/cars', controllerCar.list());
 
-    /**
+/**
      * @swagger
      * /api/cars/{id}:
      *   get:
@@ -47,9 +122,9 @@ class ApiCars {
      *             example:
      *               car: { id: 1, name: 'Car 1' }
      */
-    this.router.get('/:id', Auth.authorizeMember, ControllerCars.show);
+router.get('/cars/:id', controllerCar.show());
 
-    /**
+/**
      * @swagger
      * /api/cars:
      *   post:
@@ -69,9 +144,9 @@ class ApiCars {
      *             example:
      *               car: { id: 3, name: 'Car 3' }
      */
-    this.router.post('/', Auth.authorizeSuperAdmin, Auth.authorizeAdmin, ControllerCars.create);
+router.post('/cars', middlewareAuth.authorize, controllerCar.create());
 
-    /**
+/**
      * @swagger
      * /api/cars/{id}:
      *   put:
@@ -98,9 +173,9 @@ class ApiCars {
      *             example:
      *               car: { id: 3, name: 'Car 3' }
      */
-    this.router.put('/:id', Auth.authorizeSuperAdmin, Auth.authorizeAdmin, ControllerCars.update);
+router.put('/cars/:id', middlewareAuth.authorize, controllerCar.update());
 
-    /**
+/**
      * @swagger
      * /api/cars/{id}:
      *   delete:
@@ -117,10 +192,6 @@ class ApiCars {
      *       204:
      *         description: No Content
      */
-    this.router.delete('/:id', Auth.authorizeSuperAdmin, Auth.authorizeAdmin, ControllerCars.remove);
+router.delete('/cars/:id', middlewareAuth.authorize, controllerCar.remove());
 
-    return this.router;
-  }
-}
-
-export default new ApiCars();
+export default router;

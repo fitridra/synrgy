@@ -1,91 +1,97 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { IRestController } from '../../interfaces/IRest';
 import ServiceCars from '../../services/ServiceCars';
+import { IUsers } from '../../models/Users';
+import { ICars } from '../../models/Cars';
+import { IRequestWithAuth } from '../../middlewares/Auth';
 
-class ControllerCars implements IRestController {
-  constructor() {}
+class ControllerCars {
+  private _serviceCars: ServiceCars;
 
-  async list(_: Request, res: Response) {
-    try {
-      const response = await ServiceCars.list();
-      res.status(200).json({
-        data: response,
-      });
-    } catch (error) {
-      res.status(500).json({
-      data: error,
-      });
-    }
+  constructor(serviceCars: ServiceCars) {
+    this._serviceCars = serviceCars;
   }
 
-  async show(req: Request, res: Response) {
-    try {
-      const carId = req.params.id;
-      const response = await ServiceCars.show(carId);
-      
-      if (response) {
-        res.status(200).json({
-          data: response,
+  create() {
+    const serviceCars = this._serviceCars;
+    return async (req: IRequestWithAuth, res: Response, next: NextFunction) => {
+      try {
+        serviceCars.setUser = req.user as IUsers;
+
+        const result = await serviceCars.create(req.body as ICars);
+        res.status(201).json({
+          message: 'success create a new car',
+          data: result,
         });
-      } else {
-        res.status(404).json({
-          error: 'Car not found',
-        });
+      } catch (error) {
+        next(error);
       }
-    } catch (error) {
-      res.status(500).json({
-      data: error,
-      });
-    }
+    };
   }
 
-  async create(req: Request, res: Response) {
-    try {
-      const newCar = req.body;
-      const response = await ServiceCars.create(newCar, req);
-      res.status(201).json({
-        data: response,
-      });
-    } catch (error) {
-      res.status(500).json({
-      data: error,
-      });
-    }
-  }
+  update() {
+    const serviceCars = this._serviceCars;
+    return async (req: IRequestWithAuth, res: Response, next: NextFunction) => {
+      try {
+        const id = req.params?.id;
+        serviceCars.setUser = req.user as IUsers;
 
-  async remove(req: Request, res: Response) {
-    try {
-      const carId = req.params.id;
-      await ServiceCars.remove(carId);
-      res.status(204).send();
-    } catch (error) {
-      res.status(500).json({
-      data: error,
-      });
-    }
-  }
-
-  async update(req: Request, res: Response) {
-    try {
-      const carId = req.params.id;
-      const updatedCar = req.body;
-      const response = await ServiceCars.update(carId, updatedCar, req);
-      
-      if (response) {
+        const result = await serviceCars.update(id, req.body as ICars);
         res.status(200).json({
-          data: response,
+          message: 'success update a car',
+          data: result,
         });
-      } else {
-        res.status(404).json({
-          error: 'Car not found',
-        });
+      } catch (error) {
+        next(error);
       }
-    } catch (error) {
-      res.status(500).json({
-      data: error,
-      });
-    }
+    };
+  }
+
+  list() {
+    return async (_: Request, res: Response, next: NextFunction) => {
+      try {
+        const result = await this._serviceCars.list();
+        res.status(200).json({
+          message: 'success fetch cars',
+          data: result,
+        });
+      } catch (error) {
+        next(error);
+      }
+    };
+  }
+
+  remove() {
+    const serviceCars = this._serviceCars;
+    return async (req: IRequestWithAuth, res: Response, next: NextFunction) => {
+      try {
+        serviceCars.setUser = req.user as IUsers;
+        const id = req.params?.id;
+        const result = await this._serviceCars.remove(id);
+        res.status(200).json({
+          message: 'success remove car',
+          data: result,
+        });
+      } catch (error) {
+        next(error);
+      }
+    };
+  }
+
+  show() {
+    return async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const id = req.params?.id;
+        const result = await this._serviceCars.show(id);
+        res.status(200).json({
+          message: 'success get one car',
+          data: result,
+        });
+      } catch (error) {
+        next(error);
+      }
+    };
   }
 }
 
-export default new ControllerCars();
+export default ControllerCars;

@@ -1,103 +1,50 @@
-import { TParams } from '../interfaces/IRest';
-import Cars from '../models/Cars';
-import jwt, { JwtPayload } from 'jsonwebtoken';
-import { Request } from 'express';
+import { ICars } from '../models/Cars';
+import { IUsers } from '../models/Users';
+import RepoCars from '../repositories/RepoCars';
 
 class ServiceCars {
-  constructor() {}
+  private _repoCars: RepoCars;
+  private _user: IUsers | undefined;
 
-  async list() {
-    try {
-      const response = await Cars.list();
-      return response;
-    } catch (error) {
-      throw error;
-    }
+  constructor(repoCars: RepoCars) {
+    this._repoCars = repoCars;
   }
 
-  async show(id: string) {
-    try {
-      const response = await Cars.show(id);
-      return response;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  async create(newCar: TParams, req: Request) {
-    try {
-      const token = Array.isArray(req.headers?.authorization)
-      ? req.headers.authorization[0]
-      : req.headers?.authorization as string | undefined;
-
-      if (!token) {
-        throw new Error('Authorization header is missing');
-      }
-
-      const decodedToken = jwt.verify(token, 'RENTAL_CAR_JWT_KEY') as JwtPayload;
-      const createdByRole = decodedToken.role;
-
-      const currentDate = new Date();
-      const response = await Cars.create({
-        ...newCar,
-        cars_id: '', 
-        name: newCar.name || '', 
-        photo: newCar.photo || '', 
-        price: newCar.price || 0,
-        sizes_id: newCar.sizes_id || 0,
-        created_at: currentDate,
-        updated_at: currentDate,
-        created_by: createdByRole,
-        updated_by: createdByRole,
-      });
-      return response;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  async update(id: string, updatedCar: TParams, req: Request) {
-    try {
-      const existingCar = await Cars.show(id);
-      if (!existingCar) {
-        throw new Error('Car not found');
-      }
-
-      const token = Array.isArray(req.headers?.authorization)
-      ? req.headers.authorization[0]
-      : req.headers?.authorization as string | undefined;
-      
-      if (!token) {
-        throw new Error('Authorization header is missing');
-      }
-
-      const decodedToken = jwt.verify(token, 'RENTAL_CAR_JWT_KEY') as JwtPayload;
-      const updatedByRole = decodedToken.role;
-
-      const currentDate = new Date();
-      const response = await Cars.update(id, {
-        cars_id: existingCar.cars_id,
-        name: updatedCar.name || existingCar.name,
-        photo: updatedCar.photo || existingCar.photo,
-        price: updatedCar.price || existingCar.price,
-        sizes_id: updatedCar.sizes_id || existingCar.sizes_id,
-        updated_at: currentDate,
-        updated_by: updatedByRole,
-      });
-  
-      return response;
-    } catch (error) {
-      throw error;
-    }
+  async create(carData: ICars) {
+    const user = this.getUser as IUsers;
+    const cars = await this._repoCars.create(user, carData);
+    return cars;
   }
 
   async remove(id: string) {
-    try {
-      await Cars.remove(id);
-    } catch (error) {
-      throw error;
-    }
+    const user = this.getUser as IUsers;
+    const cars = await this._repoCars.remove(user, id);
+    return cars;
+  }
+
+  async update(id: string, carData: ICars) {
+    const user = this.getUser as IUsers;
+    const cars = await this._repoCars.update(user, id, carData);
+    return cars;
+  }
+
+  async list() {
+    const cars = await this._repoCars.list();
+    return cars;
+  }
+
+  async show(id: string) {
+    const cars = await this._repoCars.show(id);
+    return cars;
+  }
+
+  set setUser(userData: IUsers) {
+    this._user = userData;
+  }
+
+  get getUser() {
+    return this._user;
   }
 }
 
-export default new ServiceCars();
+export default ServiceCars;

@@ -1,20 +1,14 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { IUsers } from '../models/Users';
+import { JWT_KEY } from '../services/ServiceAuth';
 
-declare global {
-  namespace Express {
-    interface Request {
-      user?: IUsers;
-    }
-  }
+export interface IRequestWithAuth extends Request {
+  user?: IUsers;
 }
 class Auth {
   constructor() {}
-  authorize(_: Request, __: Response, next: NextFunction) {
-    next();
-  }
-  async authorizeSuperAdmin(req: Request, res: Response, next: NextFunction) {
+  authorize(req: IRequestWithAuth, res: Response, next: NextFunction) {
     const headers = req.headers;
 
     if (!headers.authorization) {
@@ -24,10 +18,34 @@ class Auth {
     }
 
     const token = req.headers.authorization;
-    console.log('token > ', token);
+
+    const userData = jwt.verify(`${token}`, JWT_KEY) as IUsers | undefined;
+
+    if (!userData) {
+      return res.status(403).json({
+        data: 'not authorized',
+      });
+    }
+
+    req.user = userData;
+    next();
+  }
+  async authorizeSuperAdmin(
+    req: IRequestWithAuth,
+    res: Response,
+    next: NextFunction
+  ) {
+    const headers = req.headers;
+
+    if (!headers.authorization) {
+      return res.status(403).json({
+        data: 'not authorized',
+      });
+    }
+
+    const token = req.headers.authorization;
 
     const userData = jwt.verify(`${token}`, 'RENTAL_CAR_JWT_KEY') as IUsers;
-    console.log('userData > ', userData);
 
     if (!(userData.role === 'superadmin')) {
       return res.status(403).json({
@@ -35,33 +53,9 @@ class Auth {
       });
     }
 
+    req.user = userData;
     next();
   }
-
-  async authorizeAdmin(req: Request, res: Response, next: NextFunction) {
-    const user = req.user as IUsers;
-
-    if (!user || user.role !== 'admin') {
-      return res.status(403).json({
-        data: 'Forbidden, only admin allowed',
-      });
-    }
-
-    next();
-  }
-
-  async authorizeMember(req: Request, res: Response, next: NextFunction) {
-    const user = req.user as IUsers;
-
-    if (!user || user.role !== 'member') {
-      return res.status(403).json({
-        data: 'Forbidden, only member allowed',
-      });
-    }
-
-    next();
-  }
-
 }
 
-export default new Auth();
+export default Auth;

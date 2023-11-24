@@ -1,7 +1,9 @@
-import { IRestModel, TParams } from '../interfaces/IRest';
 import database from '../config/database';
+import { Model } from 'objection';
 
-interface ICars {
+Model.knex(database);
+
+export interface ICars {
   cars_id: string;
   name: string;
   photo: string;
@@ -13,32 +15,15 @@ interface ICars {
   updated_by?: string;
 }
 
-class Cars implements IRestModel<ICars> {
-  constructor() {}
-
-  async create(newCar: ICars): Promise<ICars> {
-    const [createdCar] = await database('cars').insert(newCar).returning('*');
-    return createdCar as ICars;
+class Cars extends Model {
+  static get tableName() {
+    return 'cars';
   }
 
-  async list(): Promise<ICars[]> {
-    const data = await database.select('*').from('cars');
-    return data as ICars[];
-  }
-
-  async remove(id: string): Promise<void> {
-    await database('cars').where('cars_id', id).del();
-  }
-
-  async show(id: string): Promise<ICars | undefined> {
-    const car = await database.select('*').from('cars').where('cars_id', id).first();
-    return car as ICars | undefined;
-  }
-
-  async update(id: string, updatedCar: ICars): Promise<ICars | undefined> {
-    const [updatedRecord] = await database('cars').where('cars_id', id).update(updatedCar).returning('*');
-    return updatedRecord as ICars | undefined;
+  static get idColumn() {
+    return 'cars_id';
   }
 }
 
-export default new Cars();
+export default Cars;
+

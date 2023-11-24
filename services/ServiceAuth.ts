@@ -1,84 +1,50 @@
 import Users, { IUsers } from '../models/Users';
-import bcrypt from 'bcrypt';
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import bcrypt, { genSalt, genSaltSync } from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import RepoUsers, { IRegisterUser } from '../repositories/RepoUsers';
 
 export type TLoginPayload = {
   username: string;
   password: string;
 };
 
-const JWT_KEY = 'RENTAL_CAR_JWT_KEY';
+export const JWT_KEY = 'RENTAL_CAR_JWT_KEY';
 
-class ServiceAuth {
-  constructor() {}
+export interface IServiceAuth {
+  login(payload: TLoginPayload): Promise<IUsers | string>;
+}
+class ServiceAuth implements IServiceAuth {
+  private _repoUser: RepoUsers;
+  constructor(repoUser: RepoUsers) {
+    this._repoUser = repoUser;
+  }
 
-  async login(payload: TLoginPayload) {
-    const user = (await Users.query().findOne(
-      'username',
-      payload.username
-    )) as unknown as IUsers;
-
+  async login(payload: TLoginPayload): Promise<IUsers | string> {
+    const user = await this._repoUser.findByUsername(payload.username);
     if (!user) {
-      return {
-        success: false,
-        data: 'User tidak ditemukan',
-      };
+      return 'User tidak ditemukan';
     }
-
     const validatePassword = bcrypt.compareSync(
       payload.password,
       user.password
     );
-
     if (!validatePassword) {
-      return {
-        success: false,
-        data: 'Username dan Password Anda Salah',
-      };
+      return 'Username dan Password Anda Salah';
     }
-
-    return {
-      success: true,
-      data: user,
-    };
+    return this.generateToken(user);
   }
 
-  async register(payload: {
-    username: string;
-    email: string;
-    password: string;
-    role: string;
-  }) {
-    const create = await Users.query().insert(payload);
-    return create;
-  }
-
-  async registerMember(payload: {
-    username: string;
-    email: string;
-    password: string;
-  }) {
-    const create = await Users.query().insert({
+  async register(payload: IRegisterUser) {
+    const password = this.encryptPassword(payload.password);
+    const create = await this._repoUser.create({
       ...payload,
-      role: 'member',
+      password,
     });
     return create;
   }
 
-  async getUserByToken(token: string) {
-    try {
-      const decodedToken = jwt.verify(token, 'RENTAL_CAR_JWT_KEY') as JwtPayload;
-      const userId = decodedToken.id;
-
-      const user = await Users.query().findById(userId);
-      return user;
-    } catch (error) {
-      throw error;
-    }
-  }
-
   async getUserById(id: string) {
-    const user = await Users.query().findById(id);
+    const user = await this._repoUser.findById(id);
     return user;
   }
 
@@ -86,13 +52,16 @@ class ServiceAuth {
     const token = jwt.sign({ ...user }, JWT_KEY);
     return token;
   }
-  async validateToken(token: string) {
+  validateToken(token: string) {
     const decoded = jwt.verify(token, JWT_KEY);
     return decoded as IUsers;
   }
-  async validateRole(user: IUsers, role: string) {
+  validateRole(user: IUsers, role: string) {
     return user.role === role;
+  }
+  encryptPassword(password: string): string {
+    return bcrypt.hashSync(password, genSaltSync(5));
   }
 }
 
-export default new ServiceAuth();
+export default ServiceAuth;

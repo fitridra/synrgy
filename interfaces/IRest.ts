@@ -1,10 +1,6 @@
 import { Request, Response } from 'express';
 
 export type TParams = {
-  photo: string;
-  price: number;
-  sizes_id: number;
-  name: string;
   search?: string;
   page?: number;
   size?: number;
