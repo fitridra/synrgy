@@ -1,18 +1,17 @@
-import { Knex } from "knex";
-
+import { Knex } from 'knex';
 
 export async function up(knex: Knex): Promise<void> {
-    return knex.schema.createTable('users', function (table) {
-        table.increments('id').primary();
-        table.string('username');
-        table.string('password');
-        table.string('email');
-        table.timestamps(true, true);
-        table.string('role');
-    });
+  return await knex.schema.createTable('users', (builder) => {
+    builder.increments('id').primary().notNullable();
+    builder.string('username').unique().notNullable();
+    builder.string('email').unique().notNullable();
+    builder.text('password').notNullable();
+    builder.string('role').defaultTo('member');
+    builder.dateTime('createdAt').defaultTo(new Date().toISOString());
+    builder.dateTime('updatedAt').defaultTo(new Date().toISOString());
+  });
 }
 
-
 export async function down(knex: Knex): Promise<void> {
-    return knex.schema.dropTableIfExists('users');
+  return await knex.schema.dropTable('users');
 }

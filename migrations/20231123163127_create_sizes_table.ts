@@ -2,15 +2,17 @@ import { Knex } from "knex";
 
 
 export async function up(knex: Knex): Promise<void> {
-    return knex.schema.createTable('sizes', function (table) {
-        table.increments('sizes_id').primary();
-        table.string('name');
-        table.timestamps(true, true);
+    return await knex.schema.createTable('sizes', (builder) => {
+        builder.increments('id').primary().notNullable();
+        builder.string('name').notNullable();
+
+        builder.dateTime('createdAt').defaultTo(new Date().toISOString());
+        builder.dateTime('updatedAt').defaultTo(new Date().toISOString());    
     });
 }
 
 
 export async function down(knex: Knex): Promise<void> {
-    return knex.schema.dropTableIfExists('sizes');
+    return await knex.schema.dropTable('sizes');
 }
 
