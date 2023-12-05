@@ -1,5 +1,6 @@
 import express, { Express, NextFunction, Request, Response } from 'express';
 import apiRouter from './routes/api';
+import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
 import specs from './swagger';
 
@@ -12,6 +13,12 @@ class Server {
 
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
+
+    this.app.use(
+      cors({
+        origin: 'http://localhost:5173',
+      })
+    );
 
     this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
