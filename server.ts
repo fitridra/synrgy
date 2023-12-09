@@ -5,7 +5,7 @@ import swaggerUi from 'swagger-ui-express';
 import specs from './swagger';
 import ResponseBuilder from './utils/ResponseBuilder';
 
-const { PORT = 8080 } = process.env;
+const { PORT = 8000 } = process.env;
 
 class Server {
   private app: Express;
