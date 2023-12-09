@@ -39,7 +39,7 @@ class RepoCars {
         .whereILike('title', `%${params?.search}%`);
     }
 
-    cars.orderBy('created_at', 'desc', 'first');
+    cars.orderBy('createdAt', 'desc', 'first');
 
     return await cars;
   }
@@ -52,7 +52,7 @@ class RepoCars {
   async create(user: IUsers, carData: ICars) {
     const car = await Cars.query().insert({
       ...carData,
-      created_by: user.id,
+      createdBy: user.id,
     });
 
     return car;
@@ -62,8 +62,8 @@ class RepoCars {
     const cars = await Cars.query()
       .update({
         published: false,
-        updated_by: user.id,
-        updated_at: new Date().toISOString(),
+        updatedBy: user.id,
+        updatedAt: new Date().toISOString(),
       })
       .where('id', id);
     return cars;
@@ -73,8 +73,8 @@ class RepoCars {
     const cars = await Cars.query()
       .update({
         ...carData,
-        updated_by: user.id,
-        updated_at: new Date().toISOString(),
+        updatedBy: user.id,
+        updatedAt: new Date().toISOString(),
       })
       .where('id', `${id}`);
     return cars;

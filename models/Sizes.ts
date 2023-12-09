@@ -6,8 +6,8 @@ Model.knex(database);
 export interface ISizes {
   id: string;
   name: string;
-  created_at?: Date;
-  updated_at?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 class Sizes extends Model {

@@ -9,10 +9,10 @@ export interface ICars {
   photo: string;
   price: number;
   sizes_id: number;
-  created_at?: Date;
-  updated_at?: Date;
-  created_by?: string;
-  updated_by?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  createdBy?: string;
+  updatedBy?: string;
 }
 
 class Cars extends Model {
