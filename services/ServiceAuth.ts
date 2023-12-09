@@ -9,7 +9,7 @@ export type TLoginPayload = {
   password: string;
 };
 
-export const JWT_KEY = 'RENTAL_BOOK_JWT_KEY';
+export const JWT_KEY = 'RENTAL_CAR_JWT_KEY';
 
 export interface IServiceAuth {
   login(payload: TLoginPayload): Promise<IUsers | string>;
