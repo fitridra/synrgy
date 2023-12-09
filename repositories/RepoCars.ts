@@ -36,7 +36,7 @@ class RepoCars {
 
     if (params?.search) {
       cars
-        .whereILike('title', `%${params?.search}%`);
+        .whereILike('name', `%${params?.search}%`);
     }
 
     cars.orderBy('createdAt', 'desc', 'first');
