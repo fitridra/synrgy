@@ -1,14 +1,15 @@
-import Users, { IUsers } from '../models/Users';
-import bcrypt, { genSalt, genSaltSync } from 'bcrypt';
+import { IUsers } from '../models/Users';
+import bcrypt, { genSaltSync } from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import RepoUsers, { IRegisterUser } from '../repositories/RepoUsers';
+import ClientError from '../utils/ClientError';
 
 export type TLoginPayload = {
   username: string;
   password: string;
 };
 
-export const JWT_KEY = 'RENTAL_CAR_JWT_KEY';
+export const JWT_KEY = 'RENTAL_BOOK_JWT_KEY';
 
 export interface IServiceAuth {
   login(payload: TLoginPayload): Promise<IUsers | string>;
@@ -22,14 +23,14 @@ class ServiceAuth implements IServiceAuth {
   async login(payload: TLoginPayload): Promise<IUsers | string> {
     const user = await this._repoUser.findByUsername(payload.username);
     if (!user) {
-      return 'User tidak ditemukan';
+      throw new ClientError('user tidak ditemukan', 404);
     }
     const validatePassword = bcrypt.compareSync(
       payload.password,
       user.password
     );
     if (!validatePassword) {
-      return 'Username dan Password Anda Salah';
+      throw new ClientError('username dan password anda salah', 404);
     }
     return this.generateToken(user);
   }

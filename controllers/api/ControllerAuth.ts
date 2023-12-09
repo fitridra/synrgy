@@ -1,6 +1,6 @@
-import { Request, Response,NextFunction } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import ServiceAuth from '../../services/ServiceAuth';
-
+import ResponseBuilder from '../../utils/ResponseBuilder';
 class ControllerAuth {
   private _serviceAuth: ServiceAuth;
 
@@ -16,8 +16,12 @@ class ControllerAuth {
           username: req.body.username,
           password: req.body.password,
         });
-        res.status(200).json({
+
+        return ResponseBuilder.response({
+          res,
+          code: 200,
           data: response,
+          message: 'login success',
         });
       } catch (error) {
         next(error);
@@ -35,7 +39,10 @@ class ControllerAuth {
           role: 'admin',
           username: req.body.username,
         });
-        return res.status(201).json({
+
+        return ResponseBuilder.response({
+          res,
+          code: 201,
           data: response,
         });
       } catch (error) {

@@ -3,6 +3,7 @@ import apiRouter from './routes/api';
 import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
 import specs from './swagger';
+import ResponseBuilder from './utils/ResponseBuilder';
 
 const { PORT = 8080 } = process.env;
 
@@ -32,21 +33,26 @@ class Server {
   }
 
   private notFoundHandler(_: Request, res: Response, __: NextFunction) {
-    res.status(404).json({
-      message: 'Not found',
+    return ResponseBuilder.response({
+      res,
+      code: 404,
+      message: 'resource, data or page not found',
+      data: 'not found',
     });
   }
 
   private errorHandler(
-    err: Error,
+    err: any,
     _: Request,
     res: Response,
     __: NextFunction
   ) {
     console.log(err.stack);
-    res.status(500).json({
-      message: 'Internal server error',
-      error: err.message,
+    return ResponseBuilder.response({
+      res,
+      code: err?.statusCode ?? 500,
+      message: err.message,
+      data: err.name,
     });
   }
 

@@ -1,15 +1,58 @@
 import { NextFunction, Request, Response } from 'express';
-import { IRestController } from '../../interfaces/IRest';
 import ServiceCars from '../../services/ServiceCars';
 import { IUsers } from '../../models/Users';
 import { ICars } from '../../models/Cars';
 import { IRequestWithAuth } from '../../middlewares/Auth';
+import ResponseBuilder from '../../utils/ResponseBuilder';
+import media from '../../config/media';
 
 class ControllerCars {
   private _serviceCars: ServiceCars;
 
   constructor(serviceCars: ServiceCars) {
     this._serviceCars = serviceCars;
+  }
+
+  upload() {
+    return async (req: IRequestWithAuth, res: Response, _: NextFunction) => {
+      try {
+        if (req.file) {
+          const fileBase64 = req.file.buffer.toString('base64');
+          const file = `data:${req.file.mimetype};base64,${fileBase64}`;
+          const resultUpload = await media.storage.uploader.upload(
+            file,
+            (err: any, result: any) => {
+              if (err) {
+                return ResponseBuilder.response({
+                  code: 403,
+                  res,
+                  data: 'failed upload to storage',
+                });
+              }
+              return result;
+            }
+          );
+
+          return ResponseBuilder.response({
+            code: 200,
+            res,
+            data: resultUpload,
+          });
+        }
+
+        ResponseBuilder.response({
+          code: 404,
+          res,
+          data: 'file not found',
+        });
+      } catch (error) {
+        ResponseBuilder.response({
+          code: 500,
+          data: 'upload failed',
+          res,
+        });
+      }
+    };
   }
 
   create() {
@@ -19,9 +62,12 @@ class ControllerCars {
         serviceCars.setUser = req.user as IUsers;
 
         const result = await serviceCars.create(req.body as ICars);
-        res.status(201).json({
-          message: 'success create a new car',
+
+        return ResponseBuilder.response({
+          res,
+          code: 201,
           data: result,
+          message: 'success create a new car',
         });
       } catch (error) {
         next(error);
@@ -37,9 +83,11 @@ class ControllerCars {
         serviceCars.setUser = req.user as IUsers;
 
         const result = await serviceCars.update(id, req.body as ICars);
-        res.status(200).json({
-          message: 'success update a car',
+        return ResponseBuilder.response({
+          res,
+          code: 200,
           data: result,
+          message: 'success update a car',
         });
       } catch (error) {
         next(error);
@@ -48,12 +96,24 @@ class ControllerCars {
   }
 
   list() {
-    return async (_: Request, res: Response, next: NextFunction) => {
+    return async (req: Request, res: Response, next: NextFunction) => {
       try {
-        const result = await this._serviceCars.list();
-        res.status(200).json({
+        const query = req.query;
+        const result = await this._serviceCars.list(query);
+        const totalPages =
+          Math.floor(result.total / Number(query?.size ?? 10)) + 1;
+
+        return ResponseBuilder.response({
+          res,
+          code: 200,
+          data: result.results,
           message: 'success fetch cars',
-          data: result,
+          meta: {
+            page: query?.page ? Number(query?.page) : 1,
+            size: query?.size ? Number(query?.size) : 10,
+            totalData: result.total,
+            totalPages,
+          },
         });
       } catch (error) {
         next(error);
@@ -68,9 +128,12 @@ class ControllerCars {
         serviceCars.setUser = req.user as IUsers;
         const id = req.params?.id;
         const result = await this._serviceCars.remove(id);
-        res.status(200).json({
-          message: 'success remove car',
+
+        return ResponseBuilder.response({
+          res,
+          code: 200,
           data: result,
+          message: 'success remove car',
         });
       } catch (error) {
         next(error);
@@ -83,9 +146,12 @@ class ControllerCars {
       try {
         const id = req.params?.id;
         const result = await this._serviceCars.show(id);
-        res.status(200).json({
-          message: 'success get one car',
+
+        return ResponseBuilder.response({
+          res,
+          code: 200,
           data: result,
+          message: 'success get one car',
         });
       } catch (error) {
         next(error);

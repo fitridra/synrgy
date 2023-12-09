@@ -1,40 +1,45 @@
 import { ICars } from '../models/Cars';
 import { IUsers } from '../models/Users';
-import RepoCars from '../repositories/RepoCars';
+import RepoCars, { IParams } from '../repositories/RepoCars';
 
 class ServiceCars {
-  private _repoCars: RepoCars;
+  private _repoCar: RepoCars;
   private _user: IUsers | undefined;
 
-  constructor(repoCars: RepoCars) {
-    this._repoCars = repoCars;
+  constructor(repoCar: RepoCars) {
+    this._repoCar = repoCar;
   }
 
   async create(carData: ICars) {
     const user = this.getUser as IUsers;
-    const cars = await this._repoCars.create(user, carData);
+    const cars = await this._repoCar.create(user, carData);
     return cars;
   }
 
   async remove(id: string) {
     const user = this.getUser as IUsers;
-    const cars = await this._repoCars.remove(user, id);
+    const cars = await this._repoCar.remove(user, id);
     return cars;
   }
 
   async update(id: string, carData: ICars) {
     const user = this.getUser as IUsers;
-    const cars = await this._repoCars.update(user, id, carData);
+    const cars = await this._repoCar.update(user, id, carData);
     return cars;
   }
 
-  async list() {
-    const cars = await this._repoCars.list();
+  async list(params?: IParams) {
+    const cars = await this._repoCar.list(params);
     return cars;
+  }
+
+  async count(params?: IParams) {
+    const result = await this._repoCar.count(params);
+    return result;
   }
 
   async show(id: string) {
-    const cars = await this._repoCars.show(id);
+    const cars = await this._repoCar.show(id);
     return cars;
   }
 
