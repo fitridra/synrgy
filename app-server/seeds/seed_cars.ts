@@ -55,4 +55,4 @@ export async function seed(knex: Knex): Promise<void> {
             specs:["Driver & front passenger map pockets","Direct-type tire pressure monitor system","Cargo area lamp","Glove box lamp","Silver finish interior door handles","Driver & front passenger advanced multistage airbags w/occupant sensors","Silver accent IP trim finisher -inc: silver shifter finisher","Fasten seat belt warning light/chime"]
         },
     ]);
-};
+}
