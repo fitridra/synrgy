@@ -7,20 +7,30 @@ import { useNavigate, useParams } from 'react-router-dom';
 export function useUpdate() {
   const navigate = useNavigate();
   const params = useParams();
-  const [loadingPhoto, setLoadingPhoto] = useState<boolean>(false);
+  const [loadingImage, setLoadingImage] = useState<boolean>(false);
   const [loadingSubmit, setLoadingSubmit] = useState<boolean>(false);
   const [fileItem, setFileItem] = useState<IFileItem>();
   const [formValues, setFormValues] = useState<ICars>({
-    name: '',
-    price: 0,
-    sizes_id: 0
+    plate: '',
+    manufacture: '',
+    model: '',
+    rentPerDay: 0,
+    capacity: 0,
+    description: '',
+    availableAt: '',
+    transmission: '',
+    available: false,
+    type: '',
+    year: '',
+    options: [''],
+    specs: [''],
   });
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`http://localhost:8000/api/cars/${params.id}`);
-        setFileItem(response.data.data.photo);
+        setFileItem(response.data.data.image);
         setFormValues(response.data.data);
       } catch (error) {
         console.error('Error fetching car details:', error);
@@ -30,13 +40,13 @@ export function useUpdate() {
     fetchData();
   }, [params.id]);
 
-  const handleUploadPhoto = async (e: ChangeEvent<HTMLInputElement>) => {
+  const handleUploadImage = async (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files && files.length > 0) {
       try {
-        setLoadingPhoto(true);
+        setLoadingImage(true);
         const formData = new FormData();
-        formData.append('photo', files[0]);
+        formData.append('image', files[0]);
 
         const response = await axios.post('http://localhost:8000/api/cars/upload', formData, {
           headers: {
@@ -46,9 +56,9 @@ export function useUpdate() {
 
         setFileItem(response.data.data);
       } catch (error) {
-        console.error('Error uploading photo:', error);
+        console.error('Error uploading image:', error);
       } finally {
-        setLoadingPhoto(false);
+        setLoadingImage(false);
       }
     }
   };
@@ -64,7 +74,7 @@ export function useUpdate() {
     e.preventDefault();
     try {
       setLoadingSubmit(true);
-      const payload = { ...formValues, photo: fileItem };
+      const payload = { ...formValues, image: fileItem };
 
       await axios.put(`http://localhost:8000/api/cars/${params.id}`, payload, {
         headers: {
@@ -84,10 +94,10 @@ export function useUpdate() {
   return {
     formValues,
     setFormValues,
-    loadingPhoto,
+    loadingImage,
     loadingSubmit,
     fileItem,
-    handleUploadPhoto,
+    handleUploadImage,
     handleFormChange,
     handleSubmit,
   };

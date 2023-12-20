@@ -13,7 +13,7 @@ export function useDetail(id: string) {
       try {
         setLoading(true);
         const response = await axios.get(`http://localhost:8000/api/cars/${id}`);
-        setFileItem(response.data.data.photo);
+        setFileItem(response.data.data.image);
         setCar(response.data.data);
       } catch (error) {
         console.error('Error fetching car details:', error);

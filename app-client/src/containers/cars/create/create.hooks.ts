@@ -7,7 +7,7 @@ import { ICars } from '../cars.types';
 export default function useCreate() {
   const navigate = useNavigate();
   const [formValues, setFormValues] = useState<ICars | undefined>();
-  const [loadingPhoto, setLoadingPhoto] = useState<boolean>(false);
+  const [loadingImage, setLoadingImage] = useState<boolean>(false);
   const [loadingSubmit, setLoadingSubmit] = useState<boolean>(false);
   const [fileItem, setFileItem] = useState<IFileItem | undefined>();
 
@@ -15,7 +15,7 @@ export default function useCreate() {
     e.preventDefault();
     try {
       setLoadingSubmit(true);
-      const payload = { ...formValues, photo: fileItem };
+      const payload = { ...formValues, image: fileItem };
       await axios.post('http://localhost:8000/api/cars', payload, {
         headers: {
           Authorization: localStorage.getItem('token'),
@@ -29,13 +29,13 @@ export default function useCreate() {
     }
   };
 
-  const handleUploadPhoto = async (e: ChangeEvent<HTMLInputElement>) => {
+  const handleUploadImage = async (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files && files.length > 0) {
       try {
-        setLoadingPhoto(true);
+        setLoadingImage(true);
         const formData = new FormData();
-        formData.append('photo', files[0]);
+        formData.append('image', files[0]);
 
         const response = await axios.post(
           'http://localhost:8000/api/cars/upload',
@@ -50,17 +50,17 @@ export default function useCreate() {
       } catch (error) {
         console.log('error > ', error);
       } finally {
-        setLoadingPhoto(false);
+        setLoadingImage(false);
       }
     }
   };
 
   return {
     handleSubmit,
-    handleUploadPhoto,
+    handleUploadImage,
     setFormValues,
     formValues,
-    loadingPhoto,
+    loadingImage,
     loadingSubmit,
     fileItem,
   };

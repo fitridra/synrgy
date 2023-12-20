@@ -14,8 +14,7 @@ class RepoCars {
     const allCars = Cars.query().count('id');
     if (params?.search) {
       allCars
-        .whereILike('name', `%${params?.search}%`)
-        .orWhereILike('author', `%${params?.search}%`);
+        .whereILike('plate', `%${params?.search}%`)
     }
 
     return Number(
@@ -36,7 +35,7 @@ class RepoCars {
 
     if (params?.search) {
       cars
-        .whereILike('name', `%${params?.search}%`);
+        .whereILike('plate', `%${params?.search}%`);
     }
 
     cars.orderBy('createdAt', 'desc', 'first');

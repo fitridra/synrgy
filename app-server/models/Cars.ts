@@ -4,11 +4,22 @@ import { Model } from 'objection';
 Model.knex(database);
 
 export interface ICars {
-  id: string;
-  name: string;
-  photo: string;
-  price: number;
-  sizes_id: number;
+  id?: string;
+  plate?: string;
+  manufacture?: string;
+  model?: string;
+  image?: string;
+  rentPerDay?: number;
+  capacity?: number;
+  description?: string;
+  availableAt?: string;
+  transmission?: string;
+  available?: boolean;
+  type?: string;
+  year?: string;
+  options?: string[];
+  specs?: string[];
+  
   createdAt?: Date;
   updatedAt?: Date;
   createdBy?: string;

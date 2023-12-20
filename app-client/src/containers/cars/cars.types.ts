@@ -1,12 +1,23 @@
 import { IFileItem } from '../../services/types';
 export interface ICars {
   id?: string;
-  name?: string;
-  price?: number;
-  sizes_id?: number;
-  updatedBy?: string;
-  updatedAt?: string;
+  plate?: string;
+  manufacture?: string;
+  model?: string;
+  rentPerDay?: number;
+  capacity?: number;
+  description?: string;
+  availableAt?: string;
+  transmission?: string;
+  available?: boolean;
+  type?: string;
+  year?: string;
+  options?: string[];
+  specs?: string[];
+  
+  createdAt?: Date;
+  updatedAt?: Date;
   createdBy?: string;
-  createdAt?: string;
-  photo?: IFileItem;
+  updatedBy?: string;
+  image?: IFileItem;
 }

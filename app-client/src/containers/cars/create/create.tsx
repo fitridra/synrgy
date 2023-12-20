@@ -10,8 +10,8 @@ export default function Create() {
   const {
     formValues,
     handleSubmit,
-    handleUploadPhoto,
-    loadingPhoto,
+    handleUploadImage,
+    loadingImage,
     loadingSubmit,
     setFormValues,
     fileItem,
@@ -35,65 +35,199 @@ export default function Create() {
     >
       <Box sx={{ width: '50%' }}>
         <TextField
-          name="name"
+          name="plate"
           size="small"
           sx={{ width: '100%', mb: 3 }}
-          label="Name"
+          label="Plate"
+          placeholder="ex: DBH-3491"
           onChange={(e) =>
-            setFormValues({
-              ...formValues,
-              name: e.target.value,
-            })
+              setFormValues({
+                  ...formValues,
+                  plate: e.target.value,
+              })
           }
-          value={formValues?.name}
         />
         <TextField
-          name="price"
+          name="manufacture"
           size="small"
           sx={{ width: '100%', mb: 3 }}
-          label="Price"
+          label="Manufacture"
+          placeholder="ex: Ford"
+          onChange={(e) =>
+              setFormValues({
+                  ...formValues,
+                  manufacture: e.target.value,
+              })
+          }
+        />
+        <TextField
+          name="model"
+          size="small"
+          sx={{ width: '100%', mb: 3 }}
+          label="Model"
+          placeholder="ex: F150"
+          onChange={(e) =>
+              setFormValues({
+                  ...formValues,
+                  model: e.target.value,
+              })
+          }
+        />
+        <TextField
+          name="rentPerDay"
+          size="small"
+          sx={{ width: '100%', mb: 3 }}
+          label="Rent Per Day"
+          placeholder="ex: 200000"
           type="number"
           onChange={(e) =>
             setFormValues({
               ...formValues,
-              price: Number(e.target.value),
+              rentPerDay: e.target.value,
             })
           }
         />
-        <FormControl fullWidth>
-          <InputLabel id="size-label">Select Size</InputLabel>
+        <TextField
+          name="capacity"
+          size="small"
+          sx={{ width: '100%', mb: 3 }}
+          label="Capacity"
+          placeholder="ex: 2"
+          type="number"
+          onChange={(e) =>
+            setFormValues({
+              ...formValues,
+              capacity: e.target.value,
+            })
+          }
+        />
+        <TextField
+          name="description"
+          size="small"
+          sx={{ width: '100%', mb: 3 }}
+          label="Description"
+          placeholder="ex: Brake assist. Leather-wrapped shift knob..."
+          multiline
+          rows={4}
+          onChange={(e) =>
+            setFormValues({
+              ...formValues,
+              description: e.target.value,
+            })
+          }
+        />
+        <TextField
+          name="availableAt"
+          size="small"
+          sx={{ width: '100%', mb: 3 }}
+          label="Available At"
+          placeholder="ex: 2022-03-23T15:49:05.563Z"
+          type="datetime-local"
+          onChange={(e) =>
+            setFormValues({
+              ...formValues,
+              availableAt: e.target.value,
+            })
+          }
+        />
+        <TextField
+          name="transmission"
+          size="small"
+          sx={{ width: '100%', mb: 3 }}
+          label="Transmission"
+          placeholder="ex: Automatic"
+          onChange={(e) =>
+            setFormValues({
+              ...formValues,
+              transmission: e.target.value,
+            })
+          }
+        />
+
+        <FormControl fullWidth sx={{ mb: 3 }}>
+          <InputLabel id="available-label">Available</InputLabel>
           <Select
-            labelId="size-label"
-            sx={{ width: '100%', mb: 3 }}
-            size="small"
-            id="size-select"
-            name="sizes_id"
-            label="Select Size"
+            labelId="available-label"
+            id="available"
+            label="Available"
             onChange={(e) =>
               setFormValues({
                 ...formValues,
-                sizes_id: Number(e.target.value),
+                available: e.target.value,
               })
             }
           >
-            <MenuItem value="1">Small</MenuItem>
-            <MenuItem value="2">Medium</MenuItem>
-            <MenuItem value="3">Large</MenuItem>
+            <MenuItem value={true}>Yes</MenuItem>
+            <MenuItem value={false}>No</MenuItem>
           </Select>
-
         </FormControl>
+
+        <TextField
+          name="type"
+          size="small"
+          sx={{ width: '100%', mb: 3 }}
+          label="Type"
+          placeholder="ex: Sedan"
+          onChange={(e) =>
+            setFormValues({
+              ...formValues,
+              type: e.target.value,
+            })
+          }
+        />
+        <TextField
+          name="year"
+          size="small"
+          sx={{ width: '100%', mb: 3 }}
+          label="Year"
+          placeholder="ex: 2022"
+          type="number"
+          onChange={(e) =>
+            setFormValues({
+              ...formValues,
+              year: e.target.value,
+            })
+          }
+        />
+        <TextField
+          name="options"
+          size="small"
+          sx={{ width: '100%', mb: 3 }}
+          label="Options"
+          placeholder="ex: Cruise Control, Tinted Glass, AM/FM Stereo"
+          onChange={(e) =>
+            setFormValues({
+              ...formValues,
+              options: e.target.value.split(',').map((option) => option.trim()),
+            })
+          }
+        />
+        <TextField
+          name="specs"
+          size="small"
+          sx={{ width: '100%', mb: 3 }}
+          label="Specs"
+          placeholder="ex: Brake assist, Leather-wrapped shift knob"
+          onChange={(e) =>
+            setFormValues({
+              ...formValues,
+              specs: e.target.value.split(',').map((spec) => spec.trim()),
+            })
+          }
+        />
+
         <LoadingButton
           component="label"
           variant="contained"
           startIcon={<CloudUpload />}
           sx={{ mb: 3 }}
-          loading={loadingPhoto}
+          loading={loadingImage}
         >
           Upload Car Photo
           <VisuallyHiddenInput
             type="file"
             accept=".png, .jpg, .jpeg"
-            onChange={handleUploadPhoto}
+            onChange={handleUploadImage}
           />
         </LoadingButton>
         {fileItem && fileItem.url && (

@@ -23,11 +23,44 @@ export default function carDetail() {
 
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
             <Box sx={{ width: '100%' }}>
-              <Typography variant="body1" sx={{ fontWeight: 'bold' }}>Name</Typography>
-              <Typography variant="body1">{car.name}</Typography>
+              <Typography variant="body1" sx={{ fontWeight: 'bold' }}>Plate</Typography>
+              <Typography variant="body1">{car.plate}</Typography>
 
-              <Typography variant="body1" sx={{ fontWeight: 'bold', mt: 2 }}>Price</Typography>
-              <Typography variant="body1">{car.price}</Typography>
+              <Typography variant="body1" sx={{ fontWeight: 'bold', mt: 2 }}>Manufacture</Typography>
+              <Typography variant="body1">{car.manufacture}</Typography>
+
+              <Typography variant="body1" sx={{ fontWeight: 'bold', mt: 2 }}>Model</Typography>
+              <Typography variant="body1">{car.model}</Typography>
+
+              <Typography variant="body1" sx={{ fontWeight: 'bold', mt: 2 }}>Rent Per Day</Typography>
+              <Typography variant="body1">{car.rentPerDay}</Typography>
+
+              <Typography variant="body1" sx={{ fontWeight: 'bold', mt: 2 }}>Capacity</Typography>
+              <Typography variant="body1">{car.capacity}</Typography>
+
+              <Typography variant="body1" sx={{ fontWeight: 'bold', mt: 2 }}>Description</Typography>
+              <Typography variant="body1">{car.description}</Typography>
+
+              <Typography variant="body1" sx={{ fontWeight: 'bold', mt: 2 }}>Available At</Typography>
+              <Typography variant="body1">{car.availableAt}</Typography>
+
+              <Typography variant="body1" sx={{ fontWeight: 'bold', mt: 2 }}>Transmission</Typography>
+              <Typography variant="body1">{car.transmission}</Typography>
+
+              <Typography variant="body1" sx={{ fontWeight: 'bold', mt: 2 }}>Available</Typography>
+              <Typography variant="body1">{car.available ? 'Yes' : 'No'}</Typography>
+
+              <Typography variant="body1" sx={{ fontWeight: 'bold', mt: 2 }}>Type</Typography>
+              <Typography variant="body1">{car.type}</Typography>
+
+              <Typography variant="body1" sx={{ fontWeight: 'bold', mt: 2 }}>Year</Typography>
+              <Typography variant="body1">{car.year}</Typography>
+
+              <Typography variant="body1" sx={{ fontWeight: 'bold', mt: 2 }}>Options</Typography>
+              <Typography variant="body1">{car.options.join(', ')}</Typography>
+
+              <Typography variant="body1" sx={{ fontWeight: 'bold', mt: 2 }}>Specs</Typography>
+              <Typography variant="body1">{car.specs.join(', ')}</Typography>
             </Box>
 
             {fileItem && fileItem.url && (
