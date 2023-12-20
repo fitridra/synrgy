@@ -57,10 +57,10 @@ export default function carDetail() {
               <Typography variant="body1">{car.year}</Typography>
 
               <Typography variant="body1" sx={{ fontWeight: 'bold', mt: 2 }}>Options</Typography>
-              <Typography variant="body1">{car.options.join(', ')}</Typography>
+              <Typography variant="body1">{car.options?.join(', ')}</Typography>
 
               <Typography variant="body1" sx={{ fontWeight: 'bold', mt: 2 }}>Specs</Typography>
-              <Typography variant="body1">{car.specs.join(', ')}</Typography>
+              <Typography variant="body1">{car.specs?.join(', ')}</Typography>
             </Box>
 
             {fileItem && fileItem.url && (

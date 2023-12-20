@@ -83,7 +83,7 @@ export default function Create() {
           onChange={(e) =>
             setFormValues({
               ...formValues,
-              rentPerDay: e.target.value,
+              rentPerDay: Number(e.target.value),
             })
           }
         />
@@ -97,7 +97,7 @@ export default function Create() {
           onChange={(e) =>
             setFormValues({
               ...formValues,
-              capacity: e.target.value,
+              capacity: Number(e.target.value),
             })
           }
         />
@@ -153,12 +153,12 @@ export default function Create() {
             onChange={(e) =>
               setFormValues({
                 ...formValues,
-                available: e.target.value,
+                available: e.target.value === 'true',
               })
             }
           >
-            <MenuItem value={true}>Yes</MenuItem>
-            <MenuItem value={false}>No</MenuItem>
+            <MenuItem value="true">Yes</MenuItem>
+            <MenuItem value="false">No</MenuItem>
           </Select>
         </FormControl>
 

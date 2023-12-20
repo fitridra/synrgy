@@ -108,7 +108,7 @@ export default function List() {
             <SearchContainer>
               <TextField
                 name="search"
-                placeholder="Search cars name"
+                placeholder="Search cars plate"
                 onChange={handleSearch}
                 size="small"
                 variant="outlined"

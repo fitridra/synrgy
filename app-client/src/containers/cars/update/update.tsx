@@ -35,13 +35,8 @@ export default function Update() {
           sx={{ width: '100%', mb: 3 }}
           label="Plate"
           placeholder="ex: DBH-3491"
-          value={formValues.plate || ''}
-          onChange={(e) =>
-              setFormValues({
-                  ...formValues,
-                  plate: e.target.value,
-              })
-          }
+          value={formValues.plate}
+          onChange={(e) => handleFormChange('plate', e.target.value)}
         />
         <TextField
           name="manufacture"
@@ -49,13 +44,8 @@ export default function Update() {
           sx={{ width: '100%', mb: 3 }}
           label="Manufacture"
           placeholder="ex: Ford"
-          value={formValues.manufacture || ''}
-          onChange={(e) =>
-              setFormValues({
-                  ...formValues,
-                  manufacture: e.target.value,
-              })
-          }
+          value={formValues.manufacture}
+          onChange={(e) => handleFormChange('manufacture', e.target.value)}
         />
         <TextField
           name="model"
@@ -63,13 +53,8 @@ export default function Update() {
           sx={{ width: '100%', mb: 3 }}
           label="Model"
           placeholder="ex: F150"
-          value={formValues.model || ''}
-          onChange={(e) =>
-              setFormValues({
-                  ...formValues,
-                  model: e.target.value,
-              })
-          }
+          value={formValues.model}
+          onChange={(e) => handleFormChange('model', e.target.value)}
         />
         <TextField
           name="rentPerDay"
@@ -77,14 +62,9 @@ export default function Update() {
           sx={{ width: '100%', mb: 3 }}
           label="Rent Per Day"
           placeholder="ex: 200000"
-          value={formValues.rentPerDay || ''}
+          value={formValues.rentPerDay}
           type="number"
-          onChange={(e) =>
-            setFormValues({
-              ...formValues,
-              rentPerDay: e.target.value,
-            })
-          }
+          onChange={(e) => handleFormChange('rentPerDay', e.target.value)}
         />
         <TextField
           name="capacity"
@@ -92,14 +72,9 @@ export default function Update() {
           sx={{ width: '100%', mb: 3 }}
           label="Capacity"
           placeholder="ex: 2"
-          value={formValues.capacity || ''}
+          value={formValues.capacity}
           type="number"
-          onChange={(e) =>
-            setFormValues({
-              ...formValues,
-              capacity: e.target.value,
-            })
-          }
+          onChange={(e) => handleFormChange('capacity', e.target.value)}
         />
         <TextField
           name="description"
@@ -109,13 +84,8 @@ export default function Update() {
           placeholder="ex: Brake assist. Leather-wrapped shift knob..."
           multiline
           rows={4}
-          value={formValues.description || ''}
-          onChange={(e) =>
-            setFormValues({
-              ...formValues,
-              description: e.target.value,
-            })
-          }
+          value={formValues.description}
+          onChange={(e) => handleFormChange('description', e.target.value)}
         />
         <TextField
           name="availableAt"
@@ -124,13 +94,8 @@ export default function Update() {
           label="Available At"
           placeholder="ex: 2022-03-23T15:49:05.563Z"
           type="datetime-local"
-          value={formValues.availableAt || ''}
-          onChange={(e) =>
-            setFormValues({
-              ...formValues,
-              availableAt: e.target.value,
-            })
-          }
+          value={formValues.availableAt}
+          onChange={(e) => handleFormChange('availableAt', e.target.value)}
         />
         <TextField
           name="transmission"
@@ -138,13 +103,8 @@ export default function Update() {
           sx={{ width: '100%', mb: 3 }}
           label="Transmission"
           placeholder="ex: Automatic"
-          value={formValues.transmission || ''}
-          onChange={(e) =>
-            setFormValues({
-              ...formValues,
-              transmission: e.target.value,
-            })
-          }
+          value={formValues.transmission}
+          onChange={(e) => handleFormChange('transmission', e.target.value)}
         />
 
         <FormControl fullWidth sx={{ mb: 3 }}>
@@ -154,15 +114,10 @@ export default function Update() {
             id="available"
             value={formValues.available}
             label="Available"
-            onChange={(e) =>
-              setFormValues({
-                ...formValues,
-                available: e.target.value,
-              })
-            }
+            onChange={(e) => handleFormChange('available', e.target.value)}
           >
-            <MenuItem value={true}>Yes</MenuItem>
-            <MenuItem value={false}>No</MenuItem>
+            <MenuItem value="true">Yes</MenuItem>
+            <MenuItem value="false">No</MenuItem>
           </Select>
         </FormControl>
 
@@ -172,13 +127,8 @@ export default function Update() {
           sx={{ width: '100%', mb: 3 }}
           label="Type"
           placeholder="ex: Sedan"
-          value={formValues.type || ''}
-          onChange={(e) =>
-            setFormValues({
-              ...formValues,
-              type: e.target.value,
-            })
-          }
+          value={formValues.type}
+          onChange={(e) => handleFormChange('type', e.target.value)}
         />
         <TextField
           name="year"
@@ -186,14 +136,9 @@ export default function Update() {
           sx={{ width: '100%', mb: 3 }}
           label="Year"
           placeholder="ex: 2022"
-          value={formValues.year || ''}
+          value={formValues.year}
           type="number"
-          onChange={(e) =>
-            setFormValues({
-              ...formValues,
-              year: e.target.value,
-            })
-          }
+          onChange={(e) => handleFormChange('year', e.target.value)}
         />
         <TextField
           name="options"
@@ -202,12 +147,7 @@ export default function Update() {
           label="Options"
           placeholder="ex: Cruise Control, Tinted Glass, AM/FM Stereo"
           value={formValues.options ? formValues.options.join(', ') : ''}
-          onChange={(e) =>
-            setFormValues({
-              ...formValues,
-              options: e.target.value.split(',').map((option) => option.trim()),
-            })
-          }
+          onChange={(e) => handleFormChange('options', e.target.value)}
         />
         <TextField
           name="specs"
@@ -216,12 +156,7 @@ export default function Update() {
           label="Specs"
           placeholder="ex: Brake assist, Leather-wrapped shift knob"
           value={formValues.specs ? formValues.specs.join(', ') : ''}
-          onChange={(e) =>
-            setFormValues({
-              ...formValues,
-              specs: e.target.value.split(',').map((spec) => spec.trim()),
-            })
-          }
+          onChange={(e) => handleFormChange('specs', e.target.value)}
         />
         <LoadingButton
           component="label"
