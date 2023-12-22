@@ -8,8 +8,8 @@ export interface IUsers {
   username: string;
   password: string;
   email: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Date;
+  updatedAt: Date;
   role: string;
 }
 

@@ -61,7 +61,8 @@ class ServiceAuth implements IServiceAuth {
     return user.role === role;
   }
   encryptPassword(password: string): string {
-    return bcrypt.hashSync(password, genSaltSync(5));
+    const saltRounds = 10;
+    return bcrypt.hashSync(password, saltRounds);
   }
 }
 
