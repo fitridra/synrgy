@@ -9,17 +9,17 @@ export interface IRegisterUser {
 
 class RepoUsers {
   constructor() {}
-  async findByUsername(username: string): Promise<IUsers> {
+  async findByUsername(username: string): Promise<IUsers | undefined> {
     const user = await Users.query().findOne('username', username);
-    return user as unknown as IUsers;
+    return user as unknown as IUsers | undefined;
   }
-  async findById(id: string) {
+  async findById(id: string): Promise<IUsers | undefined> {
     const user = await Users.query().findById(id);
-    return user;
+    return user as unknown as IUsers | undefined;
   }
-  async create(userData: IRegisterUser) {
+  async create(userData: IRegisterUser): Promise<IUsers> {
     const user = await Users.query().insert(userData);
-    return user;
+    return user as unknown as IUsers;
   }
 }
 
