@@ -16,30 +16,15 @@ class Server {
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
 
-    // Enable preflight request for all routes
-    this.app.options('*', cors());
-
     // CORS configuration for actual requests
-    this.app.use(cors(
-      {
-        origin: true,
-        credentials: true,
-      }
-    ));
-
-    // Set Access-Control-Allow-Credentials header
-    this.app.use((_: Request, res: Response, next: NextFunction) => {
-      res.header('Access-Control-Allow-Credentials', 'true');
-      next();
-    });
+    const frontUrl = process.env.FRONT_URL || "https://synrgy.vercel.app";
 
     this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+    
+    this.app.use('/api', cors({ origin: frontUrl }));
     this.app.use('/api', apiRouter);
 
-    // Handle not found errors
     this.app.use(this.notFoundHandler);
-
-    // Handle other errors
     this.app.use(this.errorHandler);
   }
 
