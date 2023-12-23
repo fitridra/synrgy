@@ -20,12 +20,7 @@ class Server {
     this.app.options('*', cors());
 
     // CORS configuration for actual requests
-    this.app.use(
-      cors({
-        origin: 'https://synrgy.vercel.app',
-        credentials: true,
-      })
-    );
+    this.app.use(cors());
 
     // Set Access-Control-Allow-Credentials header
     this.app.use((_: Request, res: Response, next: NextFunction) => {
