@@ -4,7 +4,7 @@ import { ICars } from '../cars.types';
 import { IApiResponse, IMeta, IParams } from '../../../services/types';
 import { useNavigate } from 'react-router-dom';
 
-const API_BASE_URL = 'http://app-server-ch8.fly.dev/api/cars';
+const API_BASE_URL = 'https://app-server-ch8.fly.dev/api/cars';
 
 export default function useList() {
   const navigate = useNavigate();
