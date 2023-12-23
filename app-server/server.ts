@@ -20,7 +20,12 @@ class Server {
     this.app.options('*', cors());
 
     // CORS configuration for actual requests
-    this.app.use(cors());
+    this.app.use(cors(
+      {
+        origin: true,
+        credentials: true,
+      }
+    ));
 
     // Set Access-Control-Allow-Credentials header
     this.app.use((_: Request, res: Response, next: NextFunction) => {
