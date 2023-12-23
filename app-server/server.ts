@@ -9,22 +9,22 @@ const { PORT = 3000 } = process.env;
 
 class Server {
   private app: Express;
-
   constructor() {
     this.app = express();
 
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
 
-    // CORS configuration for actual requests
-    const frontUrl = process.env.FRONT_URL || "https://synrgy.vercel.app";
+    this.app.use(cors());
 
     this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
-    
-    this.app.use('/api', cors({ origin: frontUrl }));
+
     this.app.use('/api', apiRouter);
 
+    // Handle not found errors
     this.app.use(this.notFoundHandler);
+
+    // Handle other errors
     this.app.use(this.errorHandler);
   }
 

@@ -6,11 +6,12 @@ class Media {
   private _storage;
   constructor() {
     this._upload = multer({ storage: multer.memoryStorage() });
-    this._storage = cloudinary.config({
-        cloud_name: "ddzo9brne",
-        api_key: "626391368456686",
-        api_secret: "MIJVH1OhAZngYr6oRSYGlm5i6vc",
+    cloudinary.config({
+      cloud_name: 'ddzo9brne',
+      api_key: '626391368456686',
+      api_secret: 'MIJVH1OhAZngYr6oRSYGlm5i6vc',
     });
+    this._storage = cloudinary;
   }
 
   get upload() {
