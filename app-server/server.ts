@@ -5,7 +5,7 @@ import swaggerUi from 'swagger-ui-express';
 import specs from './swagger';
 import ResponseBuilder from './utils/ResponseBuilder';
 
-const { PORT = 8000 } = process.env;
+const { PORT = 3000 } = process.env;
 
 class Server {
   private app: Express;
@@ -17,7 +17,7 @@ class Server {
 
     this.app.use(
       cors({
-        origin: 'http://localhost:5173',
+        origin: 'https://synrgy.vercel.app',
       })
     );
 

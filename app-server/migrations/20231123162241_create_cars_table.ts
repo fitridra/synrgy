@@ -20,8 +20,8 @@ export async function up(knex: Knex): Promise<void> {
     
     builder.dateTime('createdAt').defaultTo(new Date().toISOString());
     builder.dateTime('updatedAt').defaultTo(new Date().toISOString());
-    builder.integer('createdBy').references('id').inTable('users');
-    builder.integer('updatedBy').references('id').inTable('users');    
+    builder.integer('createdBy');
+    builder.integer('updatedBy');    
   });
 }
 

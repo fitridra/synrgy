@@ -16,7 +16,7 @@ export default function useCreate() {
     try {
       setLoadingSubmit(true);
       const payload = { ...formValues, image: fileItem };
-      await axios.post('http://localhost:8000/api/cars', payload, {
+      await axios.post('http://app-server-ch8.fly.dev/api/cars', payload, {
         headers: {
           Authorization: localStorage.getItem('token'),
         },
@@ -38,7 +38,7 @@ export default function useCreate() {
         formData.append('image', files[0]);
 
         const response = await axios.post(
-          'http://localhost:8000/api/cars/upload',
+          'http://app-server-ch8.fly.dev/api/cars/upload',
           formData,
           {
             headers: {

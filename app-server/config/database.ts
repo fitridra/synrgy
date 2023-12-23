@@ -7,7 +7,7 @@ class Database {
   constructor() {
     this._db = knex({
       client: 'pg',
-      connection: 'postgres://postgres:docker@127.0.0.1:5432/postgres',
+      connection: 'postgres://app_server_ch8:YLP7GE6qjWXpNHy@localhost:5432/app_server_ch8',
       searchPath: ['public'],
     });
   }

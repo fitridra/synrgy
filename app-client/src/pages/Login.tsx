@@ -45,7 +45,7 @@ export default function Login() {
 
     try {
       const response = await axios.post(
-        'http://localhost:8000/api/auth/login',
+        'http://app-server-ch8.fly.dev/api/auth/login',
         { username, password }
       );
 

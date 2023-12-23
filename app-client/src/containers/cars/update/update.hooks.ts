@@ -29,7 +29,7 @@ export function useUpdate() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/cars/${params.id}`);
+        const response = await axios.get(`http://app-server-ch8.fly.dev/api/cars/${params.id}`);
         setFileItem(response.data.data.image);
         setFormValues(response.data.data);
       } catch (error) {
@@ -48,7 +48,7 @@ export function useUpdate() {
         const formData = new FormData();
         formData.append('image', files[0]);
 
-        const response = await axios.post('http://localhost:8000/api/cars/upload', formData, {
+        const response = await axios.post('http://app-server-ch8.fly.dev/api/cars/upload', formData, {
           headers: {
             Authorization: localStorage.getItem('token'),
           },
@@ -76,7 +76,7 @@ export function useUpdate() {
       setLoadingSubmit(true);
       const payload = { ...formValues, image: fileItem };
 
-      await axios.put(`http://localhost:8000/api/cars/${params.id}`, payload, {
+      await axios.put(`http://app-server-ch8.fly.dev/api/cars/${params.id}`, payload, {
         headers: {
           Authorization: localStorage.getItem('token'),
         },
