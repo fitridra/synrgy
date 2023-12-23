@@ -41,6 +41,7 @@ export default function useList() {
           headers: {
             Authorization: token,
           },
+          withCredentials: true,
         });
         await fetchCars();
       } catch (error) {
@@ -62,6 +63,7 @@ export default function useList() {
         headers: {
           Authorization: localStorage.getItem('token') || '',
         },
+        withCredentials: true,
       });
       setCars(response.data.data);
       setMeta(response.data.meta);

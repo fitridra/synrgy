@@ -9,20 +9,31 @@ const { PORT = 3000 } = process.env;
 
 class Server {
   private app: Express;
+
   constructor() {
     this.app = express();
 
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
 
+    // Enable preflight request for all routes
+    this.app.options('*', cors());
+
+    // CORS configuration for actual requests
     this.app.use(
       cors({
         origin: 'https://synrgy.vercel.app',
+        credentials: true,
       })
     );
 
-    this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+    // Set Access-Control-Allow-Credentials header
+    this.app.use((_: Request, res: Response, next: NextFunction) => {
+      res.header('Access-Control-Allow-Credentials', 'true');
+      next();
+    });
 
+    this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
     this.app.use('/api', apiRouter);
 
     // Handle not found errors
