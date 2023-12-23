@@ -6,7 +6,9 @@
   "scripts": {
     "lint": "eslint **/*.ts",
     "dev": "nodemon --watch 'src/**/*.ts' --exec ts-node-dev server.ts",
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc -p .",
+    "prod": "node ./dist/server.js"
   },
   "keywords": [],
   "author": "",

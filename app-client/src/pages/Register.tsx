@@ -46,7 +46,7 @@ export default function Register() {
 
     try {
       const response = await axios.post(
-        'http://localhost:8000/api/auth/register-admin',
+        'http://app-server-ch8.fly.dev/api/auth/register-admin',
         { email, username, password }
       );
     

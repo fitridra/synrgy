@@ -29,9 +29,10 @@ const config: { [key: string]: Knex.Config } = {
   development: {
     client: 'postgresql',
     connection: {
-      database: 'postgres',
-      user: 'postgres',
-      password: 'docker',
+      port : 5433,
+      database: 'app_server_ch8',
+      user: 'app_server_ch8',
+      password: 'YLP7GE6qjWXpNHy',
     },
     pool: {
       min: 2,
