@@ -11,7 +11,7 @@ class RepoCars {
   constructor() {}
 
   async count(params?: IParams) {
-    const allCars = Cars.query().count('id');
+    const allCars = Cars.query().count('id').where('available', true);
     if (params?.search) {
       allCars
         .whereILike('plate', `%${params?.search}%`)
@@ -28,10 +28,9 @@ class RepoCars {
 
     const cars = Cars.query()
       .select('*')
-      .page(page, size);
-      // .limit(size)
-      // .offset(page * size)
-    // .orderBy('createdAt', 'asc');
+      .page(page, size)
+      .where('available', true);
+
 
     if (params?.search) {
       cars
@@ -60,7 +59,7 @@ class RepoCars {
   async remove(user: IUsers, id: string) {
     const cars = await Cars.query()
       .update({
-        published: false,
+        available: false,
         updatedBy: user.id,
         updatedAt: new Date().toISOString(),
       })

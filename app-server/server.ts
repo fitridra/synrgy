@@ -15,11 +15,7 @@ class Server {
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
 
-    this.app.use(
-      cors({
-        origin: 'https://synrgy.vercel.app',
-      })
-    );
+    this.app.use(cors());
 
     this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 

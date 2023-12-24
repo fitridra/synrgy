@@ -12,16 +12,18 @@ class ControllerAuth {
     const auth = this._serviceAuth;
     return async (req: Request, res: Response, next: NextFunction) => {
       try {
-        const response = await auth.login({
-          username: req.body.username,
-          password: req.body.password,
-        });
-
+        const { username, password } = req.body;
+        if (!username || !password) {
+          throw new Error('Username and password are required.');
+        }
+  
+        const response = await auth.login({ username, password });
+  
         return ResponseBuilder.response({
           res,
           code: 200,
           data: response,
-          message: 'login success',
+          message: 'Login success',
         });
       } catch (error) {
         next(error);

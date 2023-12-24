@@ -15,6 +15,8 @@ import ServiceAuth from '../../services/ServiceAuth';
 import RepoCars from '../../repositories/RepoCars';
 import RepoUsers from '../../repositories/RepoUsers';
 
+import media from '../../config/media';
+
 const router = Router();
 
 const middlewareAuth = new MiddlewareAuth();
@@ -194,4 +196,10 @@ router.put('/cars/:id', middlewareAuth.authorize, controllerCar.update());
      */
 router.delete('/cars/:id', middlewareAuth.authorize, controllerCar.remove());
 
+// upload
+router.post(
+     '/cars/upload',
+     [middlewareAuth.authorize, media.upload.single('image')],
+     controllerCar.upload()
+   );
 export default router;

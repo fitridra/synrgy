@@ -13,7 +13,6 @@ import {
   TableRow,
   TextField,
 } from '@mui/material';
-import { parseISO, format } from 'date-fns';
 import { Link, useNavigate } from 'react-router-dom';
 import { HeaderElementStyled, SearchContainer, CreateButtonContainer } from './list.styled';
 import useAction from './list.hooks';
@@ -64,12 +63,9 @@ export default function List() {
         <TableCell>{record.model}</TableCell>
         <TableCell>{record.rentPerDay}</TableCell>
         <TableCell>{record.capacity}</TableCell>
+        <TableCell>{record.available}</TableCell>
         <TableCell>{record.type}</TableCell>
         <TableCell>{record.year}</TableCell>
-        <TableCell>
-          {format(parseISO(`${record.availableAt}`), 'dd/MM/yyyy HH:mm:ss')}
-        </TableCell>
-
         <TableCell>
           <Stack
             direction={'row'}
@@ -137,6 +133,7 @@ export default function List() {
                 <TableCell sx={{ fontWeight: 'bold', color: 'primary.main' }}>Available</TableCell>
                 <TableCell sx={{ fontWeight: 'bold', color: 'primary.main' }}>Type</TableCell>
                 <TableCell sx={{ fontWeight: 'bold', color: 'primary.main' }}>Year</TableCell>
+                <TableCell sx={{ fontWeight: 'bold', color: 'primary.main' }}>Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>{loading ? renderLoading() : renderContent()}</TableBody>

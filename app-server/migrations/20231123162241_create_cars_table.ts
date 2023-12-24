@@ -6,7 +6,7 @@ export async function up(knex: Knex): Promise<void> {
     builder.string("plate").notNullable();
     builder.string("manufacture").notNullable();
     builder.string("model").notNullable();
-    builder.string("image").notNullable();
+    builder.json("image").defaultTo(null).nullable();
     builder.integer("rentPerDay").notNullable();
     builder.integer("capacity").notNullable();
     builder.string("description").notNullable();
