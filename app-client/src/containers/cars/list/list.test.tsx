@@ -74,7 +74,7 @@ describe('List Component', () => {
         expect(screen.getByText('Camry')).toBeInTheDocument();
         expect(screen.getByText('50')).toBeInTheDocument();
         expect(screen.getByText('5')).toBeInTheDocument();
-        expect(screen.getByText('Yes')).toBeInTheDocument(); // Assuming true is represented as 'Yes'
+        expect(screen.getByText('Yes')).toBeInTheDocument();
         expect(screen.getByText('Sedan')).toBeInTheDocument();
         expect(screen.getByText('2022')).toBeInTheDocument();
     });

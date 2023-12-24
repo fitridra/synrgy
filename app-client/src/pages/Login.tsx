@@ -46,10 +46,7 @@ export default function Login() {
     try {
       const response = await axios.post(
         'https://app-server-ch8.fly.dev/api/auth/login',
-        { username, password },
-        {
-          withCredentials: true,
-        }
+        { username, password }
       );
 
       localStorage.setItem('token', response?.data?.data);

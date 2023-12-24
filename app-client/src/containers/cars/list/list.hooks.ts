@@ -40,8 +40,7 @@ export default function useList() {
         await axios.delete(`${API_BASE_URL}/${record.id}`, {
           headers: {
             Authorization: token,
-          },
-          withCredentials: true,
+          }
         });
         await fetchCars();
       } catch (error) {
@@ -62,8 +61,7 @@ export default function useList() {
         params,
         headers: {
           Authorization: localStorage.getItem('token') || '',
-        },
-        withCredentials: true,
+        }
       });
       setCars(response.data.data);
       setMeta(response.data.meta);

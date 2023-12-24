@@ -12,9 +12,7 @@ export function useDetail(id: string) {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`https://app-server-ch8.fly.dev/api/cars/${id}`, {
-          withCredentials: true,
-        });
+        const response = await axios.get(`https://app-server-ch8.fly.dev/api/cars/${id}`);
         setFileItem(response.data.data.image);
         setCar(response.data.data);
       } catch (error) {

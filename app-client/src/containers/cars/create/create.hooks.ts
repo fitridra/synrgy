@@ -19,8 +19,7 @@ export default function useCreate() {
       await axios.post('https://app-server-ch8.fly.dev/api/cars', payload, {
         headers: {
           Authorization: localStorage.getItem('token'),
-        },
-        withCredentials: true,
+        }
       });
       navigate(-1);
     } catch (error) {
@@ -44,8 +43,7 @@ export default function useCreate() {
           {
             headers: {
               Authorization: localStorage.getItem('token'),
-            },
-            withCredentials: true,
+            }
           }
         );
         setFileItem(response.data.data);

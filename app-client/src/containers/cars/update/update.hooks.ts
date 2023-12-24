@@ -29,9 +29,7 @@ export function useUpdate() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`https://app-server-ch8.fly.dev/api/cars/${params.id}`, {
-          withCredentials: true,
-        });
+        const response = await axios.get(`https://app-server-ch8.fly.dev/api/cars/${params.id}`);
         setFileItem(response.data.data.image);
         setFormValues(response.data.data);
       } catch (error) {
@@ -53,8 +51,7 @@ export function useUpdate() {
         const response = await axios.post('https://app-server-ch8.fly.dev/api/cars/upload', formData, {
           headers: {
             Authorization: localStorage.getItem('token'),
-          },
-          withCredentials: true,
+          }
         });
 
         setFileItem(response.data.data);
@@ -82,8 +79,7 @@ export function useUpdate() {
       await axios.put(`https://app-server-ch8.fly.dev/api/cars/${params.id}`, payload, {
         headers: {
           Authorization: localStorage.getItem('token'),
-        },
-        withCredentials: true,
+        }
       });
 
       console.log('Car details updated:', payload);
